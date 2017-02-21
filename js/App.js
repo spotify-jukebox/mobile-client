@@ -29,12 +29,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#0be573',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 })
 
 AppRegistry.registerComponent('Spotily', () => Spotily)
