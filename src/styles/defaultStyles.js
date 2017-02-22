@@ -1,11 +1,25 @@
-const colors = {
+export const colors = {
   black: '#010d06',
   accentColor: '#0be573',
   darkGrey: '#363735'
 }
 
-const styles = {
-  colors: { ...colors },
+export const roundedButton = {
+  button: {
+    marginTop: 30,
+    backgroundColor: colors.accentColor,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 26,
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 20,
+    color: 'white'
+  }
+}
+
+export const baseStyles = {
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -19,5 +33,3 @@ const styles = {
     margin: 10
   }
 }
-
-export default styles

@@ -1,15 +1,15 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import defaultStyles from '../styles/defaultStyles'
+import { baseStyles, roundedButton } from '../styles/defaultStyles'
 
 class SettingsView extends React.Component {
   static navigationOptions = {
     tabBar: {
       label: 'Settings',
       icon: ({ tintColor }) => (
-        <Ionicons name="ios-cog" style={{color: tintColor}} size={26} />
+        <Ionicons name="ios-cog" style={{ color: tintColor }} size={26} />
       )
     }
   }
@@ -18,7 +18,19 @@ class SettingsView extends React.Component {
       <View style={styles.container}>
         <Text style={styles.text}>
           Settings
-      </Text>
+        </Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Welcome')}
+            style={roundedButton.button}>
+            <Text style={roundedButton.title}>Welcome</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Bottom')}
+            style={roundedButton.button}>
+            <Text style={roundedButton.title}>Home</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -27,10 +39,11 @@ class SettingsView extends React.Component {
 export default SettingsView
 
 const styles = StyleSheet.create({
-  container: {
-    ...defaultStyles.container
-  },
-  text: {
-    ...defaultStyles.welcomeText
+  container: { 
+    ...baseStyles.container
+   },
+  text: baseStyles.welcomeText,
+  buttonContainer: {
+    justifyContent: 'center'
   }
 })

@@ -6,7 +6,7 @@ import MainView from './components/MainView'
 import SettingsView from './components/SettingsView'
 import WelcomeView from './components/WelcomeView'
 
-import defaultStyles from './styles/defaultStyles'
+import { colors } from './styles/defaultStyles'
 
 const MainScreenNavigator = TabNavigator({
   Home: {
@@ -17,7 +17,7 @@ const MainScreenNavigator = TabNavigator({
   }
 }, {
     tabBarOptions: {
-      activeTintColor: defaultStyles.colors.accentColor
+      activeTintColor: colors.accentColor
     }
   }
 )
@@ -29,14 +29,18 @@ MainScreenNavigator.navigationOptions = {
 const Stack = StackNavigator({
   Bottom: { screen: MainScreenNavigator },
   Welcome: { screen: WelcomeView }
-})
+},
+  {
+    mode: 'modal',
+    headerMode: 'none'
+  }
+)
 
 export default class Spotily extends Component {
   constructor() {
     super()
   }
   componentDidMount() {
-
   }
   render() {
     return <Stack />

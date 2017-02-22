@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 
-import defaultStyles from '../styles/defaultStyles'
+import { colors, roundedButton } from '../styles/defaultStyles'
 
 class WelcomeView extends React.Component {
   render() {
@@ -10,6 +10,11 @@ class WelcomeView extends React.Component {
         <Text style={styles.welcome}>
           Welcome to Spotily!
         </Text>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Bottom')}
+          style={roundedButton.button}>
+          <Text style={roundedButton.title}>Start</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -22,13 +27,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: defaultStyles.black
+    backgroundColor: colors.black
   },
   welcome: {
     fontSize: 30,
     textAlign: 'center',
     fontWeight: '400',
-    color: defaultStyles.accentColor,
+    color: colors.accentColor,
     margin: 10
   }
 })
