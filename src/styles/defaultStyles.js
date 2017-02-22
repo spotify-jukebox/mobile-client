@@ -6,9 +6,8 @@ export const colors = {
 
 export const roundedButton = {
   button: {
-    marginTop: 30,
     backgroundColor: colors.accentColor,
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 30,
     borderRadius: 26,
     alignItems: 'center'

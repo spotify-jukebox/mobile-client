@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '400',
     color: colors.accentColor,
-    margin: 10
+    margin: 20
   }
 })

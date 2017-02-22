@@ -22,12 +22,12 @@ class SettingsView extends React.Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Welcome')}
-            style={roundedButton.button}>
+            style={styles.button}>
             <Text style={roundedButton.title}>Welcome</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Bottom')}
-            style={roundedButton.button}>
+            style={styles.button}>
             <Text style={roundedButton.title}>Home</Text>
           </TouchableOpacity>
         </View>
@@ -45,5 +45,9 @@ const styles = StyleSheet.create({
   text: baseStyles.welcomeText,
   buttonContainer: {
     justifyContent: 'center'
+  },
+  button: {
+    ...roundedButton.button,
+    marginTop: 12
   }
 })
