@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import { AppRegistry, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { Text, View, StyleSheet } from 'react-native'
 
-export default class Spotily extends Component {
-  constructor() {
-    super()
-  }
+import defaultStyles from '../styles/defaultStyles'
+
+class WelcomeView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -16,20 +15,20 @@ export default class Spotily extends Component {
   }
 }
 
+export default WelcomeView
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#010d06',
+    backgroundColor: defaultStyles.black
   },
   welcome: {
     fontSize: 30,
     textAlign: 'center',
     fontWeight: '400',
-    color: '#0be573',
-    margin: 10,
+    color: defaultStyles.accentColor,
+    margin: 10
   }
 })
-
-AppRegistry.registerComponent('Spotily', () => Spotily)
