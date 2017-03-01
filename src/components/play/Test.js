@@ -34,7 +34,11 @@ class Test extends React.Component {
       "spotify:track:6HxIUB3fLRS8W3LfYPE8tP",
       0,
       12.0
-      , (error) => console.log(error))
+      , (error) => {
+        if (!error) {
+          this.setState({playing: true})
+        } else console.log(error)
+      })
   }
   togglePlayback() {
     const now = this.state.playing
@@ -46,7 +50,6 @@ class Test extends React.Component {
       clientID: 'f276a6769fd44a8c90def02576609c1b',
       redirectURL: 'juke-auth://callback',
       requestedScopes: ['streaming']
-      //qt^v@??x2>pkbE
     }
     SpotifyAuth.login(options, (error) => {
       console.log('spotify callback')
