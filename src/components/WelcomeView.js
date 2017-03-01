@@ -4,6 +4,11 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import { colors, roundedButton } from '../styles/defaultStyles'
 
 class WelcomeView extends React.Component {
+  static navigationOptions = {
+    header: {
+      visible: false
+    }
+  }
   render() {
     return (
       <View style={styles.container}>

@@ -36,6 +36,11 @@
 		2DCD954D1E0B4F2C00145EB5 /* SpotilyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SpotilyTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		CF0624C31E673D1800526763 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF0624C21E673D1800526763 /* Spotify.framework */; };
+		CFB429E31E65ACBE00BD0D7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB429E21E65ACBE00BD0D7D /* AVFoundation.framework */; };
+		CFB429E51E65ACC700BD0D7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB429E41E65ACC700BD0D7D /* SystemConfiguration.framework */; };
+		CFB429EA1E65B60000BD0D7D /* SpotifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB429E71E65B60000BD0D7D /* SpotifyAuth.m */; };
+		CFB429EB1E65B60000BD0D7D /* SpotifyLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB429E91E65B60000BD0D7D /* SpotifyLoginViewController.m */; };
 		CFDF5DE61E5E16310049CDAD /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFDF5DDC1E5E16310049CDAD /* Entypo.ttf */; };
 		CFDF5DE71E5E16310049CDAD /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFDF5DDD1E5E16310049CDAD /* EvilIcons.ttf */; };
 		CFDF5DE81E5E16310049CDAD /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFDF5DDE1E5E16310049CDAD /* FontAwesome.ttf */; };
@@ -265,6 +270,13 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		CF0624C21E673D1800526763 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		CFB429E21E65ACBE00BD0D7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CFB429E41E65ACC700BD0D7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CFB429E61E65B60000BD0D7D /* SpotifyAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyAuth.h; sourceTree = "<group>"; };
+		CFB429E71E65B60000BD0D7D /* SpotifyAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyAuth.m; sourceTree = "<group>"; };
+		CFB429E81E65B60000BD0D7D /* SpotifyLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyLoginViewController.h; sourceTree = "<group>"; };
+		CFB429E91E65B60000BD0D7D /* SpotifyLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyLoginViewController.m; sourceTree = "<group>"; };
 		CFDF5DDC1E5E16310049CDAD /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		CFDF5DDD1E5E16310049CDAD /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		CFDF5DDE1E5E16310049CDAD /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
@@ -290,6 +302,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFB429E51E65ACC700BD0D7D /* SystemConfiguration.framework in Frameworks */,
+				CFB429E31E65ACBE00BD0D7D /* AVFoundation.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -297,6 +311,7 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				CF0624C31E673D1800526763 /* Spotify.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
@@ -409,6 +424,10 @@
 		13B07FAE1A68108700A75B9A /* Spotily */ = {
 			isa = PBXGroup;
 			children = (
+				CFB429E61E65B60000BD0D7D /* SpotifyAuth.h */,
+				CFB429E71E65B60000BD0D7D /* SpotifyAuth.m */,
+				CFB429E81E65B60000BD0D7D /* SpotifyLoginViewController.h */,
+				CFB429E91E65B60000BD0D7D /* SpotifyLoginViewController.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -483,6 +502,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CFB429C61E65AAB200BD0D7D /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* Spotily */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SpotilyTests */,
@@ -502,6 +522,16 @@
 				2D02E4901E0B4A5D006451C7 /* Spotily-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CFB429C61E65AAB200BD0D7D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF0624C21E673D1800526763 /* Spotify.framework */,
+				CFB429E41E65ACC700BD0D7D /* SystemConfiguration.framework */,
+				CFB429E21E65ACBE00BD0D7D /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CFDF5DDB1E5E16310049CDAD /* Fonts */ = {
@@ -607,7 +637,12 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = W9M5L93W23;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = W9M5L93W23;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -955,6 +990,8 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				CFB429EA1E65B60000BD0D7D /* SpotifyAuth.m in Sources */,
+				CFB429EB1E65B60000BD0D7D /* SpotifyLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1044,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = W9M5L93W23;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1027,7 +1066,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SpotilyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1046,6 +1087,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = W9M5L93W23;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Spotily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1063,6 +1109,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9M5L93W23;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Spotily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
