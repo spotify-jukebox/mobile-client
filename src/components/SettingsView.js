@@ -24,16 +24,6 @@ class SettingsView extends React.Component {
         <Text style={styles.text}>
           Settings
         </Text>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Welcome"
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Welcome')} />
-          <Button
-            title="Home"
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Bottom')} />
-        </View>
       </View>
     )
   }

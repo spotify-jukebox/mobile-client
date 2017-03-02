@@ -5,6 +5,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation'
 import MainView from './components/MainView'
 import SettingsView from './components/SettingsView'
 import WelcomeView from './components/WelcomeView'
+import Test from './components/play/Test'
 
 import { colors } from './styles/defaultStyles'
 
@@ -12,7 +13,10 @@ const MainScreenNavigator = TabNavigator({
   Home: {
     screen: MainView
   },
-  Notifications: {
+  Play: {
+    screen: Test
+  },
+  Settings: {
     screen: SettingsView
   }
 }, {
@@ -32,7 +36,7 @@ const Stack = StackNavigator({
 },
   {
     mode: 'modal',
-    // headerMode: 'none'
+    headerMode: 'none'
   }
 )
 

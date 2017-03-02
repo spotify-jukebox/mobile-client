@@ -1,11 +1,25 @@
 import React from 'react'
 import { View, Text, NativeModules, StyleSheet } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Button from '../reusable/button'
+
+import { baseStyles } from '../../styles/defaultStyles'
 
 var SpotifyModule = NativeModules.SpotifyAuth
 
 class Test extends React.Component {
+  static navigationOptions = {
+    header: {
+      title: 'Play'
+    },
+    tabBar: {
+      label: 'Play',
+      icon: ({ tintColor }) => (
+        <Ionicons name="ios-musical-notes" style={{ color: tintColor }} size={26} />
+      )
+    }
+  }
   constructor() {
     super()
     console.log('test component here')
@@ -84,8 +98,7 @@ class Test extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    alignItems: 'center'
+    ...baseStyles.container
   },
   button: {
     flex: 0,

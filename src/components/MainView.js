@@ -2,8 +2,6 @@ import React from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Test from './play/Test'
-
 import { baseStyles } from '../styles/defaultStyles'
 
 class MainView extends React.Component {
@@ -29,7 +27,6 @@ class MainView extends React.Component {
         <Text style={styles.welcome}>
           Main Screen
         </Text>
-        <Test />
       </View>
     )
   }
