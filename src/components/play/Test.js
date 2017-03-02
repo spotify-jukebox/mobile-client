@@ -1,11 +1,9 @@
-//You need to import NativeModules to your view
 import React from 'react'
 import { View, Text, NativeModules, StyleSheet } from 'react-native'
 
 import Button from '../reusable/button'
 
-//Assign our module from NativeModules and assign it to a variable
-var SpotifyAuth = NativeModules.SpotifyAuth
+var SpotifyModule = NativeModules.SpotifyAuth
 
 class Test extends React.Component {
   constructor() {
@@ -19,58 +17,66 @@ class Test extends React.Component {
     this.state = {
       message: 'message',
       loggedIn: '',
-      playing: false
+      playing: false,
+      metadata: ''
     }
   }
   componentDidMount() {
 
   }
   test() {
-    SpotifyAuth.initialized((res) => console.log('init:', res))
-    SpotifyAuth.loggedIn((res) => this.setState({loggedIn: res}))
+    SpotifyModule.initialized((res) => {
+      console.log('init:', res)
+      this.setState({ message: res })
+    })
+    SpotifyModule.loggedIn((res) => {
+      console.log(res)
+      this.setState({ loggedIn: res })
+    })
   }
-  play() {
-    SpotifyAuth.play(
+  play() {
+    SpotifyModule.play(
       "spotify:track:6HxIUB3fLRS8W3LfYPE8tP",
       0,
       12.0
       , (error) => {
         if (!error) {
-          this.setState({playing: true})
+          this.setState({ playing: true })
+          SpotifyModule.metadata(metadata => this.setState(metadata))
+
         } else console.log(error)
       })
   }
   togglePlayback() {
     const now = this.state.playing
-    this.setState({playing: !now})
-    SpotifyAuth.setIsPlaying(!now, err => console.log(err))
+    this.setState({ playing: !now })
+    SpotifyModule.setIsPlaying(!now, err => console.log(err))
   }
   spotifyLogin() {
     const options = {
-      clientID: 'f276a6769fd44a8c90def02576609c1b',
-      redirectURL: 'juke-auth://callback',
+      clientID: process.env.clientID,
+      redirectURL: process.env.redirectURL,
       requestedScopes: ['streaming']
     }
-    SpotifyAuth.login(options, (error) => {
+    SpotifyModule.login(options, (error) => {
       console.log('spotify callback')
       console.log(error)
       if (error) {
         console.log(error)
       } else {
         console.log("login success")
-        this.setState({message: 'login success'})        
+        this.setState({ message: 'login success' })
       }
     })
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.message}</Text>
-        <Text>{this.state.loggedIn}</Text>
-        <Button onPress={this.spotifyLogin} title="Login" />
-        <Button onPress={this.test} title="Test"/>
-        <Button onPress={this.play} title="Play"/>
-        <Button onPress={this.togglePlayback} title="Toggle" />
+        <Text>{JSON.stringify(this.state)}</Text>
+        <Button style={styles.button} onPress={this.spotifyLogin} title="Login" />
+        <Button style={styles.button} onPress={this.test} title="Test" />
+        <Button style={styles.button} onPress={this.play} title="Play some random" />
+        <Button style={styles.button} onPress={this.togglePlayback} title="Toggle" />
       </View>
     )
   }
@@ -79,7 +85,11 @@ class Test extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    alignItems: 'center'
+  },
+  button: {
+    flex: 0,
+    marginTop: 10
   }
 })
 

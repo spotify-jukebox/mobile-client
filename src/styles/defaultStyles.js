@@ -1,6 +1,7 @@
 export const colors = {
   black: '#010d06',
   accentColor: '#0be573',
+  accentColorDark: '#12cd6b',
   darkGrey: '#363735'
 }
 
