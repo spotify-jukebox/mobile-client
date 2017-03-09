@@ -5,6 +5,8 @@ import { StackNavigator, TabNavigator } from 'react-navigation'
 import MainView from './components/MainView'
 import SettingsView from './components/SettingsView'
 import WelcomeView from './components/WelcomeView'
+import ContributorView from './components/ContributorView'
+import PlaylistView from './components/PlaylistView'
 import Test from './components/play/Test'
 
 import { colors } from './styles/defaultStyles'
@@ -12,6 +14,9 @@ import { colors } from './styles/defaultStyles'
 const MainScreenNavigator = TabNavigator({
   Home: {
     screen: MainView
+  },
+  Contribute: {
+    screen: ContributorView
   },
   Play: {
     screen: Test
@@ -32,7 +37,9 @@ MainScreenNavigator.navigationOptions = {
 
 const Stack = StackNavigator({
   Bottom: { screen: MainScreenNavigator },
-  Welcome: { screen: WelcomeView }
+  Welcome: { screen: WelcomeView },
+  Playlist: { screen: PlaylistView},
+
 },
   {
     mode: 'modal',
