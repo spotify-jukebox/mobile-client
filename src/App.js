@@ -7,7 +7,7 @@ import SettingsView from './components/SettingsView'
 import WelcomeView from './components/WelcomeView'
 import ContributorView from './components/ContributorView'
 import PlaylistView from './components/PlaylistView'
-import Test from './components/play/Test'
+import Test from './components/play/MusicPlayer'
 
 import { colors } from './styles/defaultStyles'
 
