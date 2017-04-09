@@ -7,7 +7,7 @@ import SettingsView from './components/SettingsView'
 import WelcomeView from './components/WelcomeView'
 import ContributorView from './components/ContributorView'
 import PlaylistView from './components/PlaylistView'
-import Test from './components/play/MusicPlayer'
+import MusicPlayer from './components/play/MusicPlayer'
 
 import { colors } from './styles/defaultStyles'
 
@@ -19,7 +19,7 @@ const MainScreenNavigator = TabNavigator({
     screen: ContributorView
   },
   Play: {
-    screen: Test
+    screen: MusicPlayer
   },
   Settings: {
     screen: SettingsView
