@@ -2,7 +2,8 @@ export const colors = {
   black: '#010d06',
   accentColor: '#0be573',
   accentColorDark: '#12cd6b',
-  darkGrey: '#363735'
+  darkGrey: '#363735',
+  testRed: '#c65553'
 }
 
 export const roundedButton = {

@@ -21,7 +21,7 @@ class MusicPlayerStore {
   @observable playlist = []
   @observable history = []
   @observable currentTrack = ""
-  @observable spliced =
+  @observable spliced = 0
   @observable nextTrack = ""
 }
 
@@ -71,12 +71,12 @@ class MusicPlayerView extends React.Component {
     this.nextTrack = this.nextTrack.bind(this)
     this.previousTrack = this.previousTrack.bind(this)
     this.updateMetadata = this.updateMetadata.bind(this)
-
-
   }
+
   componentDidMount() {
     //this.initPlaylist()
   }
+
   componentWillMount() {
     // this.initPlaylist()
   }

@@ -4,6 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { baseStyles } from '../styles/defaultStyles'
 
+import Browser from './browse/Browser'
+
 class MainView extends React.Component {
   static navigationOptions = {
     header: {
@@ -19,14 +21,14 @@ class MainView extends React.Component {
   constructor() {
     super()
   }
+
   componentDidMount() {
   }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Main Screen
-        </Text>
+        <Browser />
       </View>
     )
   }
