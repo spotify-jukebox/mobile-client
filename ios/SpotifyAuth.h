@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "React/RCTBridgeModule.h"
-
+#import <React/RCTBridgeModule.h>
 
 @interface SpotifyAuth : NSObject <RCTBridgeModule>
-@property (nonatomic, strong) NSURL *redirectURL;
+@property (nonatomic, strong) NSString *myScheme;
 -(void)urlCallback: (NSURL *)url;
 + (id)sharedManager;
 @end

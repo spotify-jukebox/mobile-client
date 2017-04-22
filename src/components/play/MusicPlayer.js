@@ -21,7 +21,26 @@ class MusicPlayerStore {
   @observable playlist = []
   @observable history = []
   @observable currentTrack = ""
+  @observable spliced =
+  @observable nextTrack = ""
 }
+
+const CurrentSongView = observer(({metadata}) => {
+  console.log("now the metadata is..:", metadata)
+  if (metadata) {
+    return (
+      <View>
+        <Text>
+          {JSON.stringify(metadata)}
+        </Text>
+      </View>
+    )
+  } else {
+    return (
+      <Text>Waiting... metadata: {metadata}</Text>
+    )
+  }
+})
 
 @observer
 class MusicPlayerView extends React.Component {
@@ -43,20 +62,20 @@ class MusicPlayerView extends React.Component {
     this.spotifyLogin = this.spotifyLogin.bind(this)
     this.test = this.test.bind(this)
     this.play = this.play.bind(this)
+    this.queueSong = this.queueSong.bind(this)
     this.togglePlayback = this.togglePlayback.bind(this)
     this.updatePlaylist = this.updatePlaylist.bind(this)
     this.skipNext = this.skipNext.bind(this)
     this.skipPrevious = this.skipPrevious.bind(this)
     this.initPlaylist = this.initPlaylist.bind(this)
-    this.updateTracks = this.updateTracks.bind(this)
     this.nextTrack = this.nextTrack.bind(this)
     this.previousTrack = this.previousTrack.bind(this)
-    this.currentSongView = this.currentSongView.bind(this)
+    this.updateMetadata = this.updateMetadata.bind(this)
 
 
   }
   componentDidMount() {
-    this.initPlaylist()
+    //this.initPlaylist()
   }
   componentWillMount() {
     // this.initPlaylist()
@@ -68,12 +87,23 @@ class MusicPlayerView extends React.Component {
     this.props.store.currentTrack = mockPlaylist[0]
   }
 
-  updatePlaylist(song) {
-    this.props.store.playlist = [
-      ...this.props.store.playlist,
-      song
-    ]
+  queueSong() {
+    SpotifyModule.currentTrackIndex((index) => {
+      const store = this.props.store
+      console.log("Current trackindex before updating store: ", index)
+      const spliceAmount = (store.splicedSongs > index) ? index : index - store.splicedSongs
+      store.splicedSongs = (spliceAmount > index) ? spliceAmount : store.splicedSongs + spliceAmount
+      const updatedPlaylist = [...this.props.store.playlist.slice(spliceAmount), "spotify:track:2SpEHTbUuebeLkgs9QB7Ue"]
+      console.log("Updated playlist: ", updatedPlaylist)
+      this.props.store.playlist = updatedPlaylist
+      this.updatePlaylist(this.props.store.playlist.peek())
+    })
+
   }
+  // updatePlaylist(song) {
+  //   this.props.store.playlist.push(song)
+  // }
+
 
   updateTracks() {
     SpotifyModule.metadata(metadata => {
@@ -107,31 +137,60 @@ class MusicPlayerView extends React.Component {
     })
   }
 
-  play(songURI) {
+  play(songURIs) {
     // const metadata = SpotifyModule.metadata((res) => {console.log("res: ", res)})
     // const currentTrack = (metadata) ? metadata.currenTrack : null
     // const nextTrack = (metadata) ? metadata.nextTrack : null
     // const trackToPlay = (currentTrack) ? currentTrack : nextTrack
     // SpotifyModule.queue("spotify:track:5I9zIwGB6f0edpjO5oX2b9").then((res) => {
-    if (true) {
-      console.log("Playing", songURI)
-      SpotifyModule.play(
-        songURI,
-        0,
-        12.0
-        , (error) => {
+    if (this.props.store.playlist.length > 0) {
+
+      const options = {
+        trackIndex: 0,
+        startTime: 0.0
+      }
+      // console.log("Playing", songURI)
+      console.log("playlist atm")
+      console.log(this.props.store.playlist)
+      SpotifyModule.playURIs(
+        songURIs,
+        options,
+        (error) => {
           if (!error) {
             this.props.store.playing = true
-            SpotifyModule.metadata(metadata => {
-              console.log("SETTING METADATA =======", metadata)
-              this.props.store.metadata = metadata
-            })
-
+            // SpotifyModule.metadata((metadata) => {
+            //   this.props.store.metadata = metadata
+            // })
+            // this.queueNext()
           } else console.log(error)
         })
+
       } else {
         console.log("No tracks to play")
       }
+    }
+
+    updatePlaylist(songURIs) {
+      if (songURIs.length > 0) {
+        SpotifyModule.replaceURIs(
+          songURIs,
+          0,
+          (error) => {
+            console.log("Something went wrong: ", error)
+          }
+        )
+      }
+    }
+
+    queue(songURI) {
+      SpotifyModule.queue(
+        songURI,
+        (error) => {
+          if (error) {
+            console.log("Something went wrong: ", error)
+          }
+        }
+      )
     }
     skipNext() {
       SpotifyModule.skipNext((res) => {
@@ -146,13 +205,24 @@ class MusicPlayerView extends React.Component {
             this.props.store.currentTrack,
             ...this.props.store.history
           ]
-          this.play(next)
+          // this.play(next)
+        console.log(res)
         } else {
           console.log("No songs in queue")
         }
         // this.updateTracks()
       })
     }
+    // queueNext() {
+    //   const next = this.nextTrack()
+    //   console.log("When queueing, next was: ", next)
+    //   if (next) {
+    //     SpotifyModule.queue(next, (error) => {
+    //       this.props.store.nextTrack = next
+    //       console.log("error happened: ", error)
+    //     })
+    //   }
+    // }
     skipPrevious() {
       SpotifyModule.skipPrevious((res) => {
         const previous = this.previousTrack()
@@ -161,10 +231,10 @@ class MusicPlayerView extends React.Component {
           this.props.store.currentTrack = previous
           this.props.store.playlist = [
             previous,
-            ...this.state.playlist
+            ...this.props.store.playlist
           ]
           this.props.store.history = [
-            ...this.state.history.slice(1)
+            ...this.props.store.history.slice(1)
           ]
           this.play(previous)
         } else {
@@ -173,12 +243,20 @@ class MusicPlayerView extends React.Component {
         // this.updateTracks()
       })
     }
+
+    updateMetadata() {
+      SpotifyModule.metadata(metadata => {
+        console.log("SETTING METADATA =======", metadata)
+        this.props.store.metadata = metadata
+      })
+    }
     togglePlayback() {
       const now = this.props.store.playing
       this.props.store.playing = !now
-      console.log("playlist: ", this.props.store.playlist)
-      console.log("metadata: ", this.props.store.metadata)
-      SpotifyModule.setIsPlaying(!now, err => console.log(err))
+      SpotifyModule.currentTrackIndex((res) => console.log("Current trackindex:", res))
+      console.log("The playlist atm:", this.props.store.playlist.length)
+      SpotifyModule.setIsPlaying(!now, (err) => console.log(err))
+      // this.updateMetadata()
     }
     spotifyLogin() {
       const options = {
@@ -186,7 +264,8 @@ class MusicPlayerView extends React.Component {
         redirectURL: 'juke-auth://callback',
         requestedScopes: ['streaming']
       }
-      SpotifyModule.login(options, (error) => {
+
+      SpotifyModule.setClientID(options.clientID, options.redirectURL, options.requestedScopes, (error) => {
         console.log('spotify callback')
         console.log(error)
         if (error) {
@@ -198,22 +277,8 @@ class MusicPlayerView extends React.Component {
       })
     }
 
-    currentSongView = (metadata) => {
-      console.log("now the metadata is..:", metadata)
-      if (metadata && metadata.currentTrack) {
-        return (
-          <View>
-            <Text>
-              {JSON.stringify(metadata)}
-            </Text>
-          </View>
-        )
-      } else {
-        return (
-          <Text>Waiting... metadata: {metadata}</Text>
-        )
-      }
-    }
+
+
 
     render() {
       const store = this.props.store
@@ -225,18 +290,20 @@ class MusicPlayerView extends React.Component {
               <Text>{store.playlist}</Text>
             </View>
             <View>
-              <Text>Current track:</Text>
-              <Text>{JSON.stringify(store.currentTrack)}</Text>
+              <Text>Current track: {store.currentTrack}</Text>
+              <Text>Next up: {store.nextTrack}</Text>
+              <Text>Playing: {(store.playing) ? "true" : "false"}</Text>
             </View>
-            {this.currentSongView(store.metadata)}
+
 
             <Button style={styles.button} onPress={this.spotifyLogin} title="Login" />
             <Button style={styles.button} onPress={this.test} title="Test" />
-            <Button style={styles.button} onPress={() => this.play(store.currentTrack)} title="Play" />
+            <Button style={styles.button} onPress={() => this.play(store.playlist.peek())} title="Play" />
             <Button style={styles.button} onPress={this.skipNext} title="Next" />
             <Button style={styles.button} onPress={this.skipPrevious} title="Previous" />
             <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
             <Button style={styles.button} onPress={this.togglePlayback} title="Toggle" />
+            <Button style={styles.button} onPress={this.queueSong} title="Update" />
           </ScrollView>
         </View>
       )
@@ -253,6 +320,7 @@ class MusicPlayerView extends React.Component {
     }
   })
 
-  const MusicPlayer = () => <MusicPlayerView store={MusicPlayerStore} />
+  const musicStore = new MusicPlayerStore()
+  const MusicPlayer = () => <MusicPlayerView store={musicStore} />
 
 export default MusicPlayer

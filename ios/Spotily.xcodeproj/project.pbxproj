@@ -35,13 +35,14 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* SpotilyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SpotilyTests.m */; };
+		47F37F161EA7E8FC002E23BB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F37F151EA7E8FC002E23BB /* WebKit.framework */; };
+		47F37F321EA7E9FD002E23BB /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F37F311EA7E9FD002E23BB /* Spotify.framework */; };
+		47F37F371EA7F2B4002E23BB /* SpotifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F37F341EA7F2B4002E23BB /* SpotifyAuth.m */; };
+		47F37F381EA7F2B4002E23BB /* SpotifyLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F37F361EA7F2B4002E23BB /* SpotifyLoginViewController.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		CF0624C31E673D1800526763 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF0624C21E673D1800526763 /* Spotify.framework */; };
 		CFB429E31E65ACBE00BD0D7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB429E21E65ACBE00BD0D7D /* AVFoundation.framework */; };
 		CFB429E51E65ACC700BD0D7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB429E41E65ACC700BD0D7D /* SystemConfiguration.framework */; };
-		CFB429EA1E65B60000BD0D7D /* SpotifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB429E71E65B60000BD0D7D /* SpotifyAuth.m */; };
-		CFB429EB1E65B60000BD0D7D /* SpotifyLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB429E91E65B60000BD0D7D /* SpotifyLoginViewController.m */; };
 		CFDF5DE61E5E16310049CDAD /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFDF5DDC1E5E16310049CDAD /* Entypo.ttf */; };
 		CFDF5DE71E5E16310049CDAD /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFDF5DDD1E5E16310049CDAD /* EvilIcons.ttf */; };
 		CFDF5DE81E5E16310049CDAD /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFDF5DDE1E5E16310049CDAD /* FontAwesome.ttf */; };
@@ -276,17 +277,18 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Spotily-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spotily-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Spotily-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spotily-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47F37F151EA7E8FC002E23BB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		47F37F311EA7E9FD002E23BB /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		47F37F331EA7F2B4002E23BB /* SpotifyAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyAuth.h; sourceTree = "<group>"; };
+		47F37F341EA7F2B4002E23BB /* SpotifyAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyAuth.m; sourceTree = "<group>"; };
+		47F37F351EA7F2B4002E23BB /* SpotifyLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyLoginViewController.h; sourceTree = "<group>"; };
+		47F37F361EA7F2B4002E23BB /* SpotifyLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyLoginViewController.m; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		68A130A42C5744498C438503 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		CF0624C21E673D1800526763 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		CFB429E21E65ACBE00BD0D7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CFB429E41E65ACC700BD0D7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		CFB429E61E65B60000BD0D7D /* SpotifyAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyAuth.h; sourceTree = "<group>"; };
-		CFB429E71E65B60000BD0D7D /* SpotifyAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyAuth.m; sourceTree = "<group>"; };
-		CFB429E81E65B60000BD0D7D /* SpotifyLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyLoginViewController.h; sourceTree = "<group>"; };
-		CFB429E91E65B60000BD0D7D /* SpotifyLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyLoginViewController.m; sourceTree = "<group>"; };
 		CFDF5DDC1E5E16310049CDAD /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		CFDF5DDD1E5E16310049CDAD /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		CFDF5DDE1E5E16310049CDAD /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F37F161EA7E8FC002E23BB /* WebKit.framework in Frameworks */,
 				CFB429E51E65ACC700BD0D7D /* SystemConfiguration.framework in Frameworks */,
 				CFB429E31E65ACBE00BD0D7D /* AVFoundation.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -321,8 +324,8 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
-				CF0624C31E673D1800526763 /* Spotify.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				47F37F321EA7E9FD002E23BB /* Spotify.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
@@ -435,10 +438,10 @@
 		13B07FAE1A68108700A75B9A /* Spotily */ = {
 			isa = PBXGroup;
 			children = (
-				CFB429E61E65B60000BD0D7D /* SpotifyAuth.h */,
-				CFB429E71E65B60000BD0D7D /* SpotifyAuth.m */,
-				CFB429E81E65B60000BD0D7D /* SpotifyLoginViewController.h */,
-				CFB429E91E65B60000BD0D7D /* SpotifyLoginViewController.m */,
+				47F37F331EA7F2B4002E23BB /* SpotifyAuth.h */,
+				47F37F341EA7F2B4002E23BB /* SpotifyAuth.m */,
+				47F37F351EA7F2B4002E23BB /* SpotifyLoginViewController.h */,
+				47F37F361EA7F2B4002E23BB /* SpotifyLoginViewController.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -547,7 +550,8 @@
 		CFB429C61E65AAB200BD0D7D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CF0624C21E673D1800526763 /* Spotify.framework */,
+				47F37F311EA7E9FD002E23BB /* Spotify.framework */,
+				47F37F151EA7E8FC002E23BB /* WebKit.framework */,
 				CFB429E41E65ACC700BD0D7D /* SystemConfiguration.framework */,
 				CFB429E21E65ACBE00BD0D7D /* AVFoundation.framework */,
 			);
@@ -1024,10 +1028,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F37F371EA7F2B4002E23BB /* SpotifyAuth.m in Sources */,
+				47F37F381EA7F2B4002E23BB /* SpotifyLoginViewController.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				CFB429EA1E65B60000BD0D7D /* SpotifyAuth.m in Sources */,
-				CFB429EB1E65B60000BD0D7D /* SpotifyLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
