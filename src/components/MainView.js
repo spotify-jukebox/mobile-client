@@ -21,10 +21,8 @@ class MainView extends React.Component {
   constructor() {
     super()
   }
-
   componentDidMount() {
   }
-
   render() {
     return (
       <View style={styles.container}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Text, NativeModules, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { observer } from 'mobx-react'
@@ -10,24 +10,29 @@ import { colors, baseStyles } from '../../styles/defaultStyles'
 const Row = observer(({props}) => {
   const { heading, sub} = props
   return(
-    <View style={styles.row}>
-      <h3>{heading}</h3>
-      <p>{sub}</p>
+    <View>
+      <Text>{heading}</Text>
+      <Text>{sub}</Text>
     </View>
   )
 })
 
-const SearchResultTable = observer(({props}) => {
-  const { trackItems } = props
-  console.log("Tracks in table component: ", trackItems)
+const SearchResultList = observer(({props}) => {
+  const { tracks } = props
+  if (tracks.length > 0) {
+    console.log("First track in tracks: ", tracks[0])
+    console.log("name: ", tracks[0].name)
+  }
   return(
-    <ScrollView style={styles.results}>
-      {trackItems.map((track, i) => {
+    <ScrollView>
+      {tracks.map((track, i) => {
         const artists = track.artists
         const rowProps = {
           heading: track.name,
-          sub: (artists.length > 1) ? artists[0] + ", ..." : artists[0]
+          sub: (artists.length > 1) ? artists[0].name + ", ..." : artists[0].name
         }
+        console.log("Drawing row for song: ", rowProps.heading)
+        console.log("with artist: ", rowProps.sub)
         return(
           <Row key={i} props={{rowProps}} />
         )
@@ -41,8 +46,8 @@ const styles = StyleSheet.create({
   },
   results: {
     backgroundColor: colors.testRed,
-    flex: 1,
-    borderWidth: 2
+    borderWidth: 2,
+    flex: 1
   },
   row: {
     height: 30
@@ -50,4 +55,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default SearchResultTable
+export default SearchResultList
