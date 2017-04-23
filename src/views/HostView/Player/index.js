@@ -13,7 +13,9 @@ import mockPlaylist from '../../../data/mockPlaylist'
 
 var SpotifyModule = NativeModules.SpotifyAuth
 
+
 class MusicPlayerStore {
+  @observable loggedIn = false
   @observable playing = false
   @observable metadata = {}
   @observable playlist = []
@@ -22,6 +24,7 @@ class MusicPlayerStore {
   @observable spliced = 0
   @observable nextTrack = ""
 }
+
 
 @observer
 class MusicPlayerView extends React.Component {
@@ -44,6 +47,9 @@ class MusicPlayerView extends React.Component {
   }
 
   componentWillMount() {
+    SpotifyModule.loggedIn((res) => {
+      this.loggedIn = res
+    })
   }
 
   initPlaylist() {
@@ -74,11 +80,6 @@ class MusicPlayerView extends React.Component {
   }
 
   play(songURIs) {
-    // const metadata = SpotifyModule.metadata((res) => {console.log("res: ", res)})
-    // const currentTrack = (metadata) ? metadata.currenTrack : null
-    // const nextTrack = (metadata) ? metadata.nextTrack : null
-    // const trackToPlay = (currentTrack) ? currentTrack : nextTrack
-    // SpotifyModule.queue("spotify:track:5I9zIwGB6f0edpjO5oX2b9").then((res) => {
     if (this.props.store.playlist.length > 0) {
       const options = {
         trackIndex: 0,
@@ -137,24 +138,12 @@ class MusicPlayerView extends React.Component {
             this.props.store.currentTrack,
             ...this.props.store.history
           ]
-          // this.play(next)
-        console.log(res)
         } else {
           console.log("No songs in queue")
         }
-        // this.updateTracks()
       })
     }
-    // queueNext() {
-    //   const next = this.nextTrack()
-    //   console.log("When queueing, next was: ", next)
-    //   if (next) {
-    //     SpotifyModule.queue(next, (error) => {
-    //       this.props.store.nextTrack = next
-    //       console.log("error happened: ", error)
-    //     })
-    //   }
-    // }
+
     skipPrevious() {
       SpotifyModule.skipPrevious((res) => {
         const previous = this.previousTrack()
@@ -193,38 +182,38 @@ class MusicPlayerView extends React.Component {
         if (error) {
           console.log(error)
         } else {
+          this.props.store.loggedIn = true
           console.log("login success")
         }
       })
     }
 
-
-
-
     render() {
       const store = this.props.store
       return (
         <View style={styles.container}>
-          <ScrollView>
+          {(store.loggedIn) ? (
             <View>
-              <Text>Playlist:</Text>
-              <Text>{store.playlist}</Text>
-            </View>
-            <View>
-              <Text>Current track: {store.currentTrack}</Text>
-              <Text>Next up: {store.nextTrack}</Text>
-              <Text>Playing: {(store.playing) ? "true" : "false"}</Text>
-            </View>
+              <View>
+                <Text>Playlist:</Text>
+                <Text>{store.playlist}</Text>
+              </View>
+              <View>
+                <Text>Current track: {store.currentTrack}</Text>
+                <Text>Next up: {store.nextTrack}</Text>
+                <Text>Playing: {(store.playing) ? "true" : "false"}</Text>
+              </View>
 
-
-            <Button style={styles.button} onPress={this.spotifyLogin} title="Login" />
-            <Button style={styles.button} onPress={() => this.play(store.playlist.peek())} title="Play" />
-            <Button style={styles.button} onPress={this.skipNext} title="Next" />
-            <Button style={styles.button} onPress={this.skipPrevious} title="Previous" />
-            <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
-            <Button style={styles.button} onPress={this.togglePlayback} title="Toggle" />
-            <Button style={styles.button} onPress={this.queueSong} title="Update" />
-          </ScrollView>
+              <Button style={styles.button} onPress={() => this.play(store.playlist.peek())} title="Play" />
+              <Button style={styles.button} onPress={this.skipNext} title="Next" />
+              <Button style={styles.button} onPress={this.skipPrevious} title="Previous" />
+              <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
+              <Button style={styles.button} onPress={this.togglePlayback} title="Toggle" />
+              <Button style={styles.button} onPress={this.queueSong} title="Update" />
+            </View>) : (
+              <Button style={styles.button} onPress={this.spotifyLogin} title="Login" />
+            )
+          }
         </View>
       )
     }
@@ -236,7 +225,7 @@ class MusicPlayerView extends React.Component {
     },
     button: {
       flex: 0,
-      marginTop: 10
+      marginTop: 10,
     }
   })
 
