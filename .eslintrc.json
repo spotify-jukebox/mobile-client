@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "extends": "airbnb",
   "env": {
     "browser": true,
@@ -10,10 +11,10 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "sourceType": "module",
-    "experimentalDecorators": true
+    "sourceType": "module"
   },
   "plugins": [
+    "babel",
     "react",
     "jsx-a11y",
     "import"
@@ -33,6 +34,8 @@
     "no-extra-semi": "error",
     "comma-dangle": 0,
     "no-use-before-define": 1,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "space-before-function-paren": "off",
+    "react/prop-types": 1
   }
 }

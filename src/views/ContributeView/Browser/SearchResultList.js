@@ -5,15 +5,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
 
-const Row = observer(({props}) => {
+const Row = observer(({ props }) => {
   const { heading, sub, trackUri, sendSongToQueue } = props
-  return(
+  return (
     <View style={styles.row}>
       <View style={styles.songInfo}>
         <Text style={styles.songName}>{heading}</Text>
         <Text style={styles.songArtist}>{sub}</Text>
       </View>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.addButton}
         onPress={() => sendSongToQueue(trackUri)}
       >
@@ -23,12 +23,12 @@ const Row = observer(({props}) => {
   )
 })
 
-const SearchResultList = observer(({props}) => {
+const SearchResultList = observer(({ props }) => {
   const { tracks, trackDataSource, sendSongToQueue } = props
-  return <ListView
-      dataSource={trackDataSource}
-      renderRow={(rowData) => <Row props={{...rowData, sendSongToQueue: sendSongToQueue}} />}
-    />
+  return (<ListView
+    dataSource={trackDataSource}
+    renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
+  />)
 })
 
 const styles = StyleSheet.create({

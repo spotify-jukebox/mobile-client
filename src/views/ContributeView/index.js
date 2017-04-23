@@ -19,7 +19,7 @@ class ContributeView extends React.Component {
       )
     }
   }
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Browser />

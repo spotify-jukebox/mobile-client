@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AppRegistry, StyleSheet, Text, View } from 'react-native'
+import { AppRegistry } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 
 import JoinPlaylistView from './components/WelcomeView'
@@ -8,14 +8,15 @@ import HostView from './views/HostView'
 
 import { colors } from './styles/defaultStyles'
 
-const MainScreenNavigator = TabNavigator({
-  Contribute: {
-    screen: ContributeView
-  },
-  Host: {
-    screen: HostView
-  }
-}, {
+const MainScreenNavigator = TabNavigator(
+  {
+    Contribute: {
+      screen: ContributeView
+    },
+    Host: {
+      screen: HostView
+    }
+  }, {
     tabBarOptions: {
       activeTintColor: colors.accentColor
     }
@@ -37,12 +38,9 @@ const Stack = StackNavigator({
 )
 
 export default class Spotily extends Component {
-  constructor() {
-    super()
+  componentDidMount () {
   }
-  componentDidMount() {
-  }
-  render() {
+  render () {
     return <Stack />
   }
 }
