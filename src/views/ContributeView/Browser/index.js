@@ -92,11 +92,9 @@ class BrowserView extends React.Component {
             <ActivityIndicator size="large" color={colors.accentColor} />
           </View>
           : <SearchResultList
-            props={{
-              tracks: store.tracks,
-              trackDataSource: store.trackDataSource,
-              sendSongToQueue: store.sendSongToQueue
-            }}
+            tracks={store.tracks}
+            trackDataSource={store.trackDataSource}
+            sendSongToQueue={store.sendSongToQueue}
           />
         }
       </View>

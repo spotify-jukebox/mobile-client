@@ -23,8 +23,7 @@ const Row = observer(({ rowData, sendSongToQueue }) => {
   )
 })
 
-const SearchResultList = observer(({ props }) => {
-  const { tracks, trackDataSource, sendSongToQueue } = props
+const SearchResultList = observer(({ tracks, trackDataSource, sendSongToQueue }) => {
   return (<ListView
     dataSource={trackDataSource}
     renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
