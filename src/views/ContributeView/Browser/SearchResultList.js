@@ -10,7 +10,7 @@ const Row = observer(({ rowData, sendSongToQueue }) => {
   return (
     <View style={styles.row}>
       <View style={styles.songInfo}>
-        <Text style={styles.songName}>{heading}</Text>
+        <Text style={styles.songName} ellipsizeMode={'tail'} numberOfLines={1}>{heading}</Text>
         <Text style={styles.songArtist}>{sub}</Text>
       </View>
       <TouchableOpacity
@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  songInfo: {
+    flex: 2
   },
   songName: {
     fontSize: 16
