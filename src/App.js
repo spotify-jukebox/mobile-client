@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { AppRegistry } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 
-import JoinPlaylistView from './components/WelcomeView'
+import JoinPlaylistView from './views/JoinPlaylistView'
 import ContributeView from './views/ContributeView'
 import HostView from './views/HostView'
+import PreferenceStore from './preferenceStore'
 
 import { colors } from './styles/defaultStyles'
 
@@ -27,10 +28,11 @@ MainScreenNavigator.navigationOptions = {
   title: 'Spotily'
 }
 
-const Stack = StackNavigator({
-  Bottom: { screen: MainScreenNavigator },
-  JoinPlaylist: { screen: JoinPlaylistView }
-},
+const Stack = StackNavigator(
+  {
+    Bottom: { screen: MainScreenNavigator },
+    JoinPlaylist: { screen: JoinPlaylistView }
+  },
   {
     mode: 'modal',
     headerMode: 'screen'

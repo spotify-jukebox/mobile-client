@@ -1,10 +1,10 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
-import { colors, roundedButton, baseStyles } from '../../styles/defaultStyles'
-
-import Browser from './Browser'
+import contributorStore from './contributorStore'
+import SearchView from './SearchView'
+import { baseStyles } from '../../styles/defaultStyles'
 
 class ContributeView extends React.Component {
   static navigationOptions = {
@@ -19,10 +19,18 @@ class ContributeView extends React.Component {
       )
     }
   }
+  componentDidMount () {
+    console.log('contributorStore:', contributorStore.playlistName)
+    if (!contributorStore.hasJoinedPlaylist && !contributorStore.didAskForPlaylistName && this.props.navigation) {
+      console.log('should join playlist')
+      contributorStore.didAskForPlaylistName = true
+      this.props.navigation.navigate('JoinPlaylist')
+    }
+  }
   render () {
     return (
       <View style={styles.container}>
-        <Browser />
+        <SearchView />
       </View>
     )
   }
