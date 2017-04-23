@@ -5,11 +5,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { observer } from 'mobx-react'
 import { observable, autorun } from 'mobx';
 
-import Button from '../reusable/button'
+import Button from '../../../reusable/button'
 
-import { baseStyles } from '../../styles/defaultStyles'
+import { baseStyles } from '../../../styles/defaultStyles'
 
-import mockPlaylist from '../../data/mockPlaylist'
+import mockPlaylist from '../../../data/mockPlaylist'
 
 var SpotifyModule = NativeModules.SpotifyAuth
 
@@ -22,7 +22,6 @@ class MusicPlayerStore {
   @observable spliced = 0
   @observable nextTrack = ""
 }
-
 
 @observer
 class MusicPlayerView extends React.Component {

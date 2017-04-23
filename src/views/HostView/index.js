@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 import { colors, roundedButton } from '../../styles/defaultStyles'
 
+import Player from './Player'
+
 class HostView extends React.Component {
   static navigationOptions = {
     header: {
@@ -20,6 +22,7 @@ class HostView extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Host</Text>
+        <Player />
       </View>
     )
   }

@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/Entypo'
 
 import { colors, roundedButton } from '../../styles/defaultStyles'
 
+import Browser from './Browser'
+
 class ContributeView extends React.Component {
   static navigationOptions = {
     header: {
@@ -20,6 +22,7 @@ class ContributeView extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Contribute</Text>
+        <Browser />
       </View>
     )
   }
