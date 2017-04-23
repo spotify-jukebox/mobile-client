@@ -23,12 +23,12 @@ const Row = observer(({ rowData, sendSongToQueue }) => {
   )
 })
 
-const SearchResultList = observer(({ tracks, trackDataSource, sendSongToQueue }) => {
-  return (<ListView
+const SearchResultList = observer(({ tracks, trackDataSource, sendSongToQueue }) =>
+  <ListView
     dataSource={trackDataSource}
     renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
-  />)
-})
+  />
+)
 
 const styles = StyleSheet.create({
   listView: {
