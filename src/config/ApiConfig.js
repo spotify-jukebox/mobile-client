@@ -8,6 +8,6 @@ export const SpotifyWebApi = {
   url: spotifyWebApiBaseUrl + "/" + spotifyWebApiVersion
 }
 
-export const backendApi = {
+export const BackendApi = {
   baseUrl: backendBaseUrl
 }
