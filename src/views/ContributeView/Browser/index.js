@@ -46,6 +46,7 @@ class BrowserStore {
       body: JSON.stringify({"track_url": trackUri})
     }
     fetch(BackendApi.baseUrl + "/list/" + this.playlistName, options).then((res) => {
+      console.log("Succesfully queued track " + trackUri + " to " + this.playlistName + ".")
       this.addingSong = false
     }).catch((err) => {
       console.log("Failed to add song: ", err)
