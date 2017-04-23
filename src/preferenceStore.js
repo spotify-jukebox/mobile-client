@@ -12,4 +12,6 @@ class PreferenceStore {
   }
 }
 
-export default new PreferenceStore()
+const store = new PreferenceStore()
+
+export default store
