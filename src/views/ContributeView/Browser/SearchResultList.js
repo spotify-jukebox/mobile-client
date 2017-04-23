@@ -7,14 +7,17 @@ import Spinner from '../../../reusable/spinner'
 import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
 
 const Row = observer(({props}) => {
-  const { heading, sub} = props
+  const { heading, sub, trackUri, sendSongToQueue } = props
   return(
     <View style={styles.row}>
       <View style={styles.songInfo}>
         <Text style={styles.songName}>{heading}</Text>
         <Text style={styles.songArtist}>{sub}</Text>
       </View>
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity 
+        style={styles.addButton}
+        onPress={() => sendSongToQueue(trackUri)}
+      >
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>
@@ -22,11 +25,10 @@ const Row = observer(({props}) => {
 })
 
 const SearchResultList = observer(({props}) => {
-  const { tracks, trackDataSource } = props
+  const { tracks, trackDataSource, sendSongToQueue } = props
   return <ListView
-      style={styles.listView}
       dataSource={trackDataSource}
-      renderRow={(rowData) => <Row props={rowData} />}
+      renderRow={(rowData) => <Row props={{...rowData, sendSongToQueue: sendSongToQueue}} />}
     />
 })
 
