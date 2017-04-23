@@ -8,7 +8,7 @@ import { observable, computed } from 'mobx';
 import Button from '../reusable/button'
 import SearchResultList from './SearchResultList'
 
-import SpotifyWebApi from '../../config/SpotifyWebApi'
+import { SpotifyWebApi } from '../../config/WebApis'
 
 import { colors, baseStyles } from '../../styles/defaultStyles'
 
@@ -42,11 +42,9 @@ class BrowserView extends React.Component {
   }
 
   componentDidMount() {
-    //this.initPlaylist()
   }
 
   componentWillMount() {
-    // this.initPlaylist()
   }
 
   search(query) {
