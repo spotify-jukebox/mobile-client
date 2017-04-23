@@ -1,9 +1,9 @@
 import React from 'react'
-import { TextInput, ScrollView, View, Text, NativeModules, StyleSheet } from 'react-native'
+import { TextInput, ListView, View, Text, NativeModules, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { observer } from 'mobx-react'
-import { observable, autorun } from 'mobx';
+import { observable, computed } from 'mobx';
 
 import Button from '../reusable/button'
 import SearchResultList from './SearchResultList'
@@ -19,6 +19,18 @@ class BrowserStore {
   @observable searchString = ""
   @observable tracks = [{name: "keijo", "artists": [{name: "keijoke"}]}]
   @observable artists = []
+
+  trackDs = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+
+  @computed get trackDataSource() {
+    return this.trackDs.cloneWithRows(this.tracks.map((track) => {
+      const artists = track.artists
+      return {
+        heading: track.name,
+        sub: (artists.length > 1) ? artists[0].name + ", ..." : artists[0].name
+      }
+    }))
+  }
 }
 
 @observer
@@ -62,7 +74,7 @@ class BrowserView extends React.Component {
           placeholder={store.searchString}
           returnKeyType={'done'}
           />
-        <SearchResultList props={{tracks: store.tracks}} />
+        <SearchResultList props={{tracks: store.tracks, trackDataSource: store.trackDataSource}} />
       </View>
     )
   }
