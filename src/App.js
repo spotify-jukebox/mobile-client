@@ -2,27 +2,18 @@ import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, Text, View } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 
-import MainView from './components/MainView'
-import SettingsView from './components/SettingsView'
 import WelcomeView from './components/WelcomeView'
-import ContributorView from './components/ContributorView'
-import PlaylistView from './components/PlaylistView'
-import MusicPlayer from './components/play/MusicPlayer'
+import ContributeView from './views/ContributeView'
+import HostView from './views/HostView'
 
 import { colors } from './styles/defaultStyles'
 
 const MainScreenNavigator = TabNavigator({
-  Home: {
-    screen: MainView
-  },
   Contribute: {
-    screen: ContributorView
+    screen: ContributeView
   },
-  Play: {
-    screen: MusicPlayer
-  },
-  Settings: {
-    screen: SettingsView
+  Host: {
+    screen: HostView
   }
 }, {
     tabBarOptions: {
@@ -37,8 +28,7 @@ MainScreenNavigator.navigationOptions = {
 
 const Stack = StackNavigator({
   Bottom: { screen: MainScreenNavigator },
-  Welcome: { screen: WelcomeView },
-  Playlist: { screen: PlaylistView},
+  Welcome: { screen: WelcomeView }
 
 },
   {
