@@ -5,12 +5,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
 
-const Row = observer(({props}) => {
-  const { heading, sub, trackUri, sendSongToQueue } = props
-  return(
+const Row = observer(({ rowData, sendSongToQueue }) => {
+  const { heading, sub, trackUri } = rowData
+  return (
     <View style={styles.row}>
       <View style={styles.songInfo}>
-        <Text style={styles.songName}>{heading}</Text>
+        <Text style={styles.songName} ellipsizeMode={'tail'} numberOfLines={1}>{heading}</Text>
         <Text style={styles.songArtist}>{sub}</Text>
       </View>
       <TouchableOpacity
@@ -23,13 +23,12 @@ const Row = observer(({props}) => {
   )
 })
 
-const SearchResultList = observer(({props}) => {
-  const { tracks, trackDataSource, sendSongToQueue } = props
-  return <ListView
-      dataSource={trackDataSource}
-      renderRow={(rowData) => <Row props={{...rowData, sendSongToQueue: sendSongToQueue}} />}
-    />
-})
+const SearchResultList = observer(({ tracks, trackDataSource, sendSongToQueue }) =>
+  <ListView
+    dataSource={trackDataSource}
+    renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
+  />
+)
 
 const styles = StyleSheet.create({
   listView: {
@@ -42,6 +41,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  songInfo: {
+    flex: 2
   },
   songName: {
     fontSize: 16
