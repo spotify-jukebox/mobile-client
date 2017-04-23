@@ -1,10 +1,14 @@
-const baseUrl = "https://api.spotify.com"
-const version = "v1"
+const spotifyWebApiBaseUrl = "https://api.spotify.com"
+const spotifyWebApiVersion = "v1"
 
-const SpotifyWebApi = {
-  baseUrl: baseUrl,
-  version: version,
-  url: baseUrl + "/" + version
+const backendBaseUrl = "https://spotily-api.herokuapp.com"
+
+export const SpotifyWebApi = {
+  baseUrl: spotifyWebApiBaseUrl,
+  version: spotifyWebApiVersion,
+  url: spotifyWebApiBaseUrl + "/" + spotifyWebApiVersion
 }
 
-export default SpotifyWebApi
+export const backendApi = {
+  baseUrl: backendBaseUrl
+}
