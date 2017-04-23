@@ -5,8 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
 
-const Row = observer(({ props }) => {
-  const { heading, sub, trackUri, sendSongToQueue } = props
+const Row = observer(({ rowData, sendSongToQueue }) => {
+  const { heading, sub, trackUri } = rowData
   return (
     <View style={styles.row}>
       <View style={styles.songInfo}>
