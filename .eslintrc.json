@@ -31,6 +31,8 @@
       "never"
     ],
     "no-extra-semi": "error",
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "no-use-before-define": 1,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }
