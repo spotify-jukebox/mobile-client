@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-import { baseStyles, roundedButton } from '../../styles/defaultStyles'
+import { baseStyles, roundedButton } from '../styles/defaultStyles'
 
 const Button = ({title, children, style, ...props}) => {
   console.log(title)

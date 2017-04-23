@@ -5,12 +5,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { observer } from 'mobx-react'
 import { observable, computed } from 'mobx';
 
-import Button from '../reusable/button'
+import Button from '../../../reusable/button'
 import SearchResultList from './SearchResultList'
 
-import { SpotifyWebApi } from '../../config/WebApis'
+import { SpotifyWebApi } from '../../../config/ApiConfig'
 
-import { colors, baseStyles } from '../../styles/defaultStyles'
+import { colors, baseStyles } from '../../../styles/defaultStyles'
 
 
 var SpotifyModule = NativeModules.SpotifyAuth

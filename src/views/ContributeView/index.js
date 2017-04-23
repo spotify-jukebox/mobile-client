@@ -4,6 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { colors, roundedButton } from '../../styles/defaultStyles'
 
+import Browser from './Browser'
+
 class ContributeView extends React.Component {
   static navigationOptions = {
     header: {
@@ -19,7 +21,7 @@ class ContributeView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Moi</Text>
+        <Browser />
       </View>
     )
   }
