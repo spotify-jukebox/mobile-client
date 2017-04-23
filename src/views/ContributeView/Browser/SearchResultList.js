@@ -3,7 +3,6 @@ import { ListView, View, Text, StyleSheet, TouchableOpacity } from 'react-native
 import { observer } from 'mobx-react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Spinner from '../../../reusable/spinner'
 import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
 
 const Row = observer(({props}) => {
