@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import { colors, roundedButton } from '../../styles/defaultStyles'
 
@@ -10,16 +10,16 @@ class HostView extends React.Component {
       visible: false
     },
     tabBar: {
-      label: 'Settings',
+      label: 'Host',
       icon: ({ tintColor }) => (
-        <Ionicons name="ios-play-outline" style={{ color: tintColor }} size={26} />
+        <Icon name="ios-play-outline" style={{ color: tintColor }} size={26} />
       )
     }
   }
   render () {
     return (
       <View style={styles.container}>
-        <Text>Moi</Text>
+        <Text>Host</Text>
       </View>
     )
   }
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.black
+    backgroundColor: colors.white
   },
   welcome: {
     fontSize: 30,
