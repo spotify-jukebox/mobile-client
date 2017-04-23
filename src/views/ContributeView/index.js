@@ -2,14 +2,15 @@ import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
-import { colors, roundedButton } from '../../styles/defaultStyles'
+import { colors, roundedButton, baseStyles } from '../../styles/defaultStyles'
 
 import Browser from './Browser'
 
 class ContributeView extends React.Component {
   static navigationOptions = {
     header: {
-      visible: false
+      title: 'Contribute',
+      visible: true
     },
     tabBar: {
       label: 'Contribute',
@@ -21,7 +22,6 @@ class ContributeView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Contribute</Text>
         <Browser />
       </View>
     )
@@ -32,16 +32,6 @@ export default ContributeView
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.white
-  },
-  welcome: {
-    fontSize: 30,
-    textAlign: 'center',
-    fontWeight: '400',
-    color: colors.accentColor,
-    margin: 20
+    ...baseStyles.container
   }
 })

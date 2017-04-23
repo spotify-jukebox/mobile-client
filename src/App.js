@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, Text, View } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 
-import WelcomeView from './components/WelcomeView'
+import JoinPlaylistView from './components/WelcomeView'
 import ContributeView from './views/ContributeView'
 import HostView from './views/HostView'
 
@@ -28,12 +28,11 @@ MainScreenNavigator.navigationOptions = {
 
 const Stack = StackNavigator({
   Bottom: { screen: MainScreenNavigator },
-  Welcome: { screen: WelcomeView }
-
+  JoinPlaylist: { screen: JoinPlaylistView }
 },
   {
     mode: 'modal',
-    headerMode: 'none'
+    headerMode: 'screen'
   }
 )
 

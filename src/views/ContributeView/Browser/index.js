@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput, ListView, View, Text, NativeModules, StyleSheet } from 'react-native'
+import { TextInput, ListView, View, Text, NativeModules, StyleSheet, ActivityIndicator } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { observer } from 'mobx-react'
@@ -10,12 +10,13 @@ import SearchResultList from './SearchResultList'
 
 import { SpotifyWebApi } from '../../../config/ApiConfig'
 
-import { colors, baseStyles } from '../../../styles/defaultStyles'
+import { colors, baseStyles, inputStyle } from '../../../styles/defaultStyles'
 
 
 var SpotifyModule = NativeModules.SpotifyAuth
 
 class BrowserStore {
+  @observable loading = false
   @observable searchString = ""
   @observable tracks = [{name: "keijo", "artists": [{name: "keijoke"}]}]
   @observable artists = []
@@ -35,63 +36,63 @@ class BrowserStore {
 
 @observer
 class BrowserView extends React.Component {
-
   constructor() {
     super()
     this.search = this.search.bind(this)
   }
-
-  componentDidMount() {
-  }
-
-  componentWillMount() {
-  }
-
   search(query) {
-    console.log("Search initiated, query: ", query)
-    const store = this.props.store
+    const { store } = this.props
     const apiUrl = SpotifyWebApi.url
     const requestUrl = apiUrl + "/search?q=" + query + "&type=track"
-    fetch(requestUrl).then((res) => {
-      res.json().then((json) => {
-        console.log("json, first track: ", json.tracks.items[0].name)
+    store.loading = true
+    fetch(requestUrl)
+      .then(res => res.json())
+      .then(json => {
         store.tracks.replace(json.tracks.items)
-      }).catch((err) => console.log("fug error inside: ", err))
-    }).catch((err) => console.log("fug error: ", err))
+        store.loading = false
+      })
+      .catch(err => console.log("fug error inside: ", err))
   }
-
   render() {
-    const store = this.props.store
-    console.log("RENDERING RESULTS... number of tracks: ", store.tracks.length)
+    const { store } = this.props
     return(
-      <View>
-        <Text>"Search"</Text>
-        <TextInput
-          style={{height: 30, borderColor: 'gray', borderWidth: 1}}
-          onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
-          placeholder={store.searchString}
-          returnKeyType={'done'}
-          />
-        <SearchResultList props={{tracks: store.tracks, trackDataSource: store.trackDataSource}} />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TextInput
+            style={styles.searchInput}
+            onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
+            placeholder={store.searchString}
+            returnKeyType={'done'}
+            />
+        </View>
+        { store.loading
+          ? <View style={styles.centered}>
+            <ActivityIndicator size="large" color={colors.accentColor} />
+          </View>
+          : <SearchResultList props={{tracks: store.tracks, trackDataSource: store.trackDataSource}} />
+        }
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...baseStyles.container
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  input: {
+  container: {
     flex: 1
   },
-  search: {
-    flex: 1,
-    borderColor: 'gray',
-    borderWidth: 1
+  header: {
+    padding: 10,
+    borderBottomColor: colors.lightGrey,
+    borderBottomWidth: 1,
+    backgroundColor: colors.white
   },
-  results: {
-    flex: 4
+  searchInput: {
+    ...inputStyle
   }
 })
 

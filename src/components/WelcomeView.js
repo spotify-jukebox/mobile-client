@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 
 import { colors, roundedButton } from '../styles/defaultStyles'
 
-class WelcomeView extends React.Component {
+class JoinPlaylistView extends React.Component {
   static navigationOptions = {
     header: {
       visible: false
@@ -25,7 +25,7 @@ class WelcomeView extends React.Component {
   }
 }
 
-export default WelcomeView
+export default JoinPlaylistView
 
 const styles = StyleSheet.create({
   container: {

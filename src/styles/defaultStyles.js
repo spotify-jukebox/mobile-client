@@ -1,9 +1,11 @@
 export const colors = {
   black: '#010d06',
+  white: '#fff',
   accentColor: '#0be573',
   accentColorDark: '#12cd6b',
   darkGrey: '#363735',
-  testRed: '#c65553'
+  lightGrey: '#bcbcbc',
+  testRed: '#c65553',
 }
 
 export const roundedButton = {
@@ -23,8 +25,8 @@ export const roundedButton = {
 export const baseStyles = {
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'column',
+    backgroundColor: colors.white
   },
   welcomeText: {
     fontSize: 30,
@@ -33,4 +35,12 @@ export const baseStyles = {
     color: colors.accentColor,
     margin: 10
   }
+}
+
+export const inputStyle = {
+  padding: 8,
+  height: 40, 
+  borderColor: colors.lightGrey, 
+  borderWidth: 1,
+  borderRadius: 2
 }
