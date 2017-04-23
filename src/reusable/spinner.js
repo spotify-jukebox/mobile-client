@@ -4,19 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 import { baseStyles, colors } from '../styles/defaultStyles'
 
-const Spinner = ({style, ...props}) => {
-  return (
-    <Icon name="ion-load-c" size={30}></Icon>
-  )
-}
+const Spinner = ({ style, ...props }) => (
+  <Icon name="ion-load-c" size={30} />
+)
 
-// const styles = StyleSheet.create({
-//   button: {
-//     ...roundedButton.button
-//   },
-//   title: {
-//     ...roundedButton.title
-//   }
-// })
-
-export default <Spinner></Spinner>
+export default Spinner

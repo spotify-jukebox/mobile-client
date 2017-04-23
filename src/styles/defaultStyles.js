@@ -39,8 +39,8 @@ export const baseStyles = {
 
 export const inputStyle = {
   padding: 8,
-  height: 40, 
-  borderColor: colors.lightGrey, 
+  height: 40,
+  borderColor: colors.lightGrey,
   borderWidth: 1,
   borderRadius: 2
 }

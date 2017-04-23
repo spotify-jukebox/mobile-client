@@ -3,12 +3,13 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 
 import { baseStyles, roundedButton } from '../styles/defaultStyles'
 
-const Button = ({title, children, style, ...props}) => {
+const Button = ({ title, children, style, ...props }) => {
   console.log(title)
   return (
     <TouchableOpacity
       style={[styles.button, style]}
-      {...props}>
+      {...props}
+    >
       <Text style={styles.title}>{title}</Text>
       {children}
     </TouchableOpacity>
