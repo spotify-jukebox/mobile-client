@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { colors, roundedButton } from '../../styles/defaultStyles'
 
@@ -14,7 +14,7 @@ class HostView extends React.Component {
     tabBar: {
       label: 'Host',
       icon: ({ tintColor }) => (
-        <Icon name="ios-play-outline" style={{ color: tintColor }} size={26} />
+        <Icon name="speaker" style={{ color: tintColor }} size={26} />
       )
     }
   }

@@ -3,7 +3,12 @@ export const colors = {
   white: '#fff',
   accentColor: '#0be573',
   accentColorDark: '#12cd6b',
+  appleGrey: '#f2f2f2',
+  barColor: '#f3f3f3',
+  lightestGrey: '#e3e3e3',
+  lightGreen: '#ccfaea',
   darkGrey: '#363735',
+  grey: '#cecece',
   lightGrey: '#bcbcbc',
   testRed: '#c65553',
 }
@@ -34,13 +39,19 @@ export const baseStyles = {
     fontWeight: '400',
     color: colors.accentColor,
     margin: 10
+  },
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 
 export const inputStyle = {
   padding: 8,
   height: 40,
-  borderColor: colors.lightGrey,
+  backgroundColor: colors.white,
+  borderColor: colors.grey,
   borderWidth: 1,
-  borderRadius: 2
+  borderRadius: 4
 }

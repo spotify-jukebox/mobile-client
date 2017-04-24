@@ -24,15 +24,22 @@ const Row = observer(({ rowData, sendSongToQueue }) => {
 })
 
 const SearchResultList = observer(({ tracks, trackDataSource, sendSongToQueue }) =>
-  <ListView
-    dataSource={trackDataSource}
-    renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
-  />
+  tracks && tracks.length > 0
+    ? <ListView
+      dataSource={trackDataSource}
+      renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
+    />
+    : <View style={styles.emptyList}>
+      <Text style={{ fontSize: 30, color: colors.lightGrey }}>Nothing found :(</Text>
+    </View>
 )
 
 const styles = StyleSheet.create({
   listView: {
     padding: 4
+  },
+  emptyList: {
+    ...baseStyles.centered
   },
   row: {
     paddingVertical: 10,
