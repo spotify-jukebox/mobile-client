@@ -19,7 +19,9 @@ const MainScreenNavigator = TabNavigator(
     }
   }, {
     tabBarOptions: {
-      activeTintColor: colors.accentColor
+      activeTintColor: colors.accentColorDark,
+      activeBackgroundColor: colors.barColor,
+      inactiveBackgroundColor: colors.barColor
     }
   }
 )

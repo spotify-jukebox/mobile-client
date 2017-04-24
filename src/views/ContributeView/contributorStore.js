@@ -7,7 +7,7 @@ class ContributorStore {
   @observable searchString = ''
   @observable tracks = [{ name: 'keijo', artists: [{ name: 'keijoke' }], trackUri: 'spotify:track:5I9zIwGB6f0edpjO5oX2b9' }]
   @observable artists = []
-  @observable playlistName = '' //'tiger-wolf-dog'
+  @observable playlistName = 'tiger-wolf-dog'
   @observable addingSong = false
   @observable didAskForPlaylistName = false
 

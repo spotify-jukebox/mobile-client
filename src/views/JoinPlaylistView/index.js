@@ -21,7 +21,8 @@ class JoinPlaylistView extends React.Component {
   }
   setPlaylist (input) {
     contributorStore.joinPlaylist(input)
-    this.props.navigation.navigate('Bottom')
+    // this.props.navigation.navigate('Bottom')
+    this.props.navigation.goBack()
   }
   render () {
     return (
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     paddingVertical: 200,
-    backgroundColor: colors.white
+    backgroundColor: colors.lightGreen
   },
   welcomeText: {
     fontSize: 30,

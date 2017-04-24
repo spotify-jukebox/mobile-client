@@ -21,10 +21,13 @@ class SearchView extends React.Component {
     fetch(requestUrl)
       .then(res => res.json())
       .then((json) => {
+        contributorStore.loading = false
         contributorStore.tracks.replace(json.tracks.items)
+      })
+      .catch(err => {
+        console.log('fug error inside: ', err)
         contributorStore.loading = false
       })
-      .catch(err => console.log('fug error inside: ', err))
   }
   render () {
     return (
@@ -33,10 +36,9 @@ class SearchView extends React.Component {
           <TextInput
             style={styles.searchInput}
             onSubmitEditing={event => this.search(event.nativeEvent.text)}
-            placeholder={contributorStore.searchString}
+            placeholder={'Artist, song name...'}
             returnKeyType={'done'}
           />
-          <Text>playlost: {contributorStore.playlistName}</Text>
         </View>
         {contributorStore.loading
           ? <View style={styles.centered}>
@@ -64,9 +66,9 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 10,
-    borderBottomColor: colors.lightGrey,
+    borderBottomColor: colors.lightestGrey,
     borderBottomWidth: 1,
-    backgroundColor: colors.white
+    backgroundColor: colors.barColor
   },
   searchInput: {
     ...inputStyle
