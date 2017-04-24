@@ -5,11 +5,13 @@ import { BackendApi } from '../../config/ApiConfig'
 class ContributorStore {
   @observable loading = false
   @observable searchString = ''
-  @observable tracks = [{ name: 'keijo', artists: [{ name: 'keijoke' }], trackUri: 'spotify:track:5I9zIwGB6f0edpjO5oX2b9' }]
+  @observable tracks = [] /*[{ name: 'keijo', artists: [{ name: 'keijoke' }], trackUri: 'spotify:track:5I9zIwGB6f0edpjO5oX2b9' }]*/
+  @observable didSearch = false
   @observable artists = []
-  @observable playlistName = 'tiger-wolf-dog'
-  @observable addingSong = false
+  @observable playlistName = ''//'tiger-wolf-dog'
+  @observable addingSong = ''
   @observable didAskForPlaylistName = false
+  @observable didNagAboutPlaylist = false
 
   trackDs = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 
@@ -21,6 +23,7 @@ class ContributorStore {
     console.log('set playlist as: ', string)
     this.playlistName = string
     this.didAskForPlaylistName = false
+    this.didNagAboutPlaylist = true
   }
 
   @computed get trackDataSource () {
@@ -35,7 +38,7 @@ class ContributorStore {
   }
 
   @action sendSongToQueue = (trackUri) => {
-    this.addingSong = true
+    this.addingSong = trackUri
     const options = {
       method: 'POST',
       headers: {
@@ -45,11 +48,11 @@ class ContributorStore {
     }
     fetch(`${BackendApi.baseUrl}/list/${this.playlistName}`, options)
       .then(() => {
-        this.addingSong = false
+        this.addingSong = ''
       })
       .catch((err) => {
         console.log('Failed to add song: ', err)
-        this.addingSong = false
+        this.addingSong = ''
       })
   }
 }

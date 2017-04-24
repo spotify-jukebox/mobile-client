@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
 
 import contributorStore from '../ContributeView/contributorStore'
-import { colors, roundedButton, inputStyle } from '../../styles/defaultStyles'
+import { colors, roundedButton, inputStyle, playlistStyle } from '../../styles/defaultStyles'
 
 class JoinPlaylistView extends React.Component {
   static navigationOptions = {
@@ -25,13 +25,21 @@ class JoinPlaylistView extends React.Component {
     this.props.navigation.goBack()
   }
   render () {
+    const { initialNag } = this.props.navigation.state.params ||  false
     return (
       <View style={styles.container}>
         <View style={styles.welcome}>
           <Text style={styles.welcomeText}>
-            Welcome to Spotily!
-            Join a playlist to get started.
+            {initialNag
+              ? 'Welcome to Spotily! Join a playlist to get started.'
+              : 'Current playlist:'}
           </Text>
+          {!initialNag &&
+            <View style={styles.playlist}>
+              <Text style={styles.playlistText}>{contributorStore.playlistName}</Text>
+            </View>
+          }
+
         </View>
 
         <View style={styles.playlistForm}>
@@ -40,6 +48,7 @@ class JoinPlaylistView extends React.Component {
             onChangeText={this.handleInput}
             placeholder="Playlist name"
             returnKeyType={'done'}
+            autoCapitalize="none"
           />
 
           <TouchableOpacity
@@ -64,6 +73,12 @@ const styles = StyleSheet.create({
   nameInput: {
     ...inputStyle,
     marginBottom: 20
+  },
+  playlist: {
+    ...playlistStyle.container
+  },
+  playlistText: {
+    ...playlistStyle.title
   },
   container: {
     flex: 1,

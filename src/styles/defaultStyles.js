@@ -5,12 +5,13 @@ export const colors = {
   accentColorDark: '#12cd6b',
   appleGrey: '#f2f2f2',
   barColor: '#f3f3f3',
+  barTextColor: 'black',
   lightestGrey: '#e3e3e3',
   lightGreen: '#ccfaea',
   darkGrey: '#363735',
   grey: '#cecece',
   lightGrey: '#bcbcbc',
-  testRed: '#c65553',
+  testRed: '#c65553'
 }
 
 export const roundedButton = {
@@ -24,6 +25,19 @@ export const roundedButton = {
   title: {
     fontSize: 20,
     color: 'white'
+  }
+}
+
+export const playlistStyle = {
+  container: {
+    borderWidth: 1,
+    borderColor: colors.accentColor,
+    borderRadius: 18,
+    padding: 4
+  },
+  title: {
+    color: colors.accentColor,
+    fontSize: 18
   }
 }
 

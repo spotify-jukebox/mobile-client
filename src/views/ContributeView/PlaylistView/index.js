@@ -5,17 +5,21 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Button from '../../../reusable/button'
 import contributorStore from '../contributorStore'
-import { colors } from '../../../styles/defaultStyles'
+import { colors, playlistStyle } from '../../../styles/defaultStyles'
 
-const PlaylistView = observer(({ props }) => {
-  console.log(props)
+const PlaylistView = observer(({ onPressPlaylist }) => {
   return (
     <View style={styles.bottombar}>
       <Button style={styles.quitButton}>
         <Icon name="caret-down" size={26} color={colors.darkGrey} />
       </Button>
-      <TouchableOpacity style={styles.playlistContainer}>
-        <Text style={styles.barText}> { contributorStore.playlistName } </Text>
+      <TouchableOpacity
+        style={contributorStore.hasJoinedPlaylist ? styles.playlistContainer : styles.joinButton}
+        onPress={() => onPressPlaylist()}
+      >
+        { contributorStore.hasJoinedPlaylist
+        ? <Text style={styles.barText}>{ contributorStore.playlistName }</Text>
+        : <Text style={styles.joinButtonText}>Join a playlist</Text> }
       </TouchableOpacity>
     </View>
   )
@@ -34,10 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   playlistContainer: {
-    borderWidth: 1,
-    borderColor: colors.accentColor,
-    borderRadius: 18,
-    padding: 4,
+    ...playlistStyle.container
   },
   quitButton: {
     padding: 4,
@@ -45,8 +46,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   barText: {
+    ...playlistStyle.title
+  },
+  joinButton: {
+    padding: 6
+  },
+  joinButtonText: {
     color: colors.accentColor,
-    fontSize: 18
+    fontSize: 16
   }
 })
 

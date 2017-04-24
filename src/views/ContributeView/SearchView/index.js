@@ -18,6 +18,7 @@ class SearchView extends React.Component {
     const apiUrl = SpotifyWebApi.url
     const requestUrl = `${apiUrl}/search?q=${query}&type=track`
     contributorStore.loading = true
+    contributorStore.didSearch = true
     fetch(requestUrl)
       .then(res => res.json())
       .then((json) => {
