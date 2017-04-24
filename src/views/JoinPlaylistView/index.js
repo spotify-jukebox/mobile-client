@@ -32,9 +32,9 @@ class JoinPlaylistView extends React.Component {
           <Text style={styles.welcomeText}>
             {initialNag
               ? 'Welcome to Spotily! Join a playlist to get started.'
-              : 'Current playlist:'}
+              : contributorStore.hasJoinedPlaylist ? 'Current playlist' : 'Join a playlist:'}
           </Text>
-          {!initialNag &&
+          {!initialNag && contributorStore.hasJoinedPlaylist &&
             <View style={styles.playlist}>
               <Text style={styles.playlistText}>{contributorStore.playlistName}</Text>
             </View>
@@ -57,10 +57,10 @@ class JoinPlaylistView extends React.Component {
           >
             <Text style={roundedButton.title}>Join</Text>
           </TouchableOpacity>
-          <Button
+          {initialNag && <Button
             onPress={() => this.props.navigation.goBack()}
             title="Later" color={colors.accentColor}
-          />
+          />}
 
         </View>
 
@@ -80,7 +80,9 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   playlist: {
-    ...playlistStyle.container
+    ...playlistStyle.container,
+    alignSelf: 'center',
+    marginVertical: 20
   },
   playlistText: {
     ...playlistStyle.title

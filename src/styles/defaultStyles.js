@@ -33,7 +33,8 @@ export const playlistStyle = {
     borderWidth: 1,
     borderColor: colors.accentColor,
     borderRadius: 18,
-    padding: 4
+    padding: 4,
+    paddingHorizontal: 10
   },
   title: {
     color: colors.accentColor,
