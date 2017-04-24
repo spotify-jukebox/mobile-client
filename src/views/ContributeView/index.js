@@ -24,17 +24,17 @@ class ContributeView extends React.Component {
   }
   componentDidMount () {
     console.log('contributorStore:', contributorStore.playlistName)
-    if (!contributorStore.hasJoinedPlaylist && !contributorStore.didAskForPlaylistName && this.props.navigation) {
+    if (!contributorStore.hasJoinedPlaylist && !contributorStore.didNagAboutPlaylist && this.props.navigation) {
       console.log('should join playlist')
-      contributorStore.didAskForPlaylistName = true
-      this.props.navigation.navigate('JoinPlaylist')
+      contributorStore.didNagAboutPlaylist = true
+      this.props.navigation.navigate('JoinPlaylist', { initialNag: true })
     }
   }
   render () {
     return (
       <View style={styles.container}>
         <SearchView />
-        <PlaylistView />
+        <PlaylistView onPressPlaylist={() => this.props.navigation.navigate('JoinPlaylist')} />
       </View>
     )
   }

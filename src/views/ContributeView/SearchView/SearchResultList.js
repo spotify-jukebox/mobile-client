@@ -1,7 +1,8 @@
 import React from 'react'
-import { ListView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { ListView, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { observer } from 'mobx-react'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import contributorStore from '../contributorStore'
+import Icon from 'react-native-vector-icons/Entypo'
 
 import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
 
@@ -16,8 +17,19 @@ const Row = observer(({ rowData, sendSongToQueue }) => {
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => sendSongToQueue(trackUri)}
+        disabled={!contributorStore.hasJoinedPlaylist}
       >
-        <Text style={styles.addButtonText}>+</Text>
+        {contributorStore.addingSong === trackUri
+          ? <ActivityIndicator size="small" />
+          : <Icon
+            color={
+              contributorStore.hasJoinedPlaylist
+                ? colors.accentColor
+                : colors.lightestGrey
+            }
+            name="add-to-list" size={24}
+          />
+        }
       </TouchableOpacity>
     </View>
   )
@@ -30,7 +42,9 @@ const SearchResultList = observer(({ tracks, trackDataSource, sendSongToQueue })
       renderRow={rowData => <Row rowData={rowData} sendSongToQueue={sendSongToQueue} />}
     />
     : <View style={styles.emptyList}>
-      <Text style={{ fontSize: 30, color: colors.lightGrey }}>Nothing found :(</Text>
+      <Text style={{ fontSize: 30, color: colors.lightGrey, textAlign: 'center' }}>
+        {contributorStore.didSearch ? 'Nothing found :(' : 'Find songs by artist, song name, etc'}
+      </Text>
     </View>
 )
 
@@ -47,23 +61,23 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.lightGrey,
     borderBottomWidth: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   songInfo: {
     flex: 2
   },
   songName: {
-    fontSize: 16
+    fontSize: 18
   },
   songArtist: {
-    fontSize: 14
+    fontSize: 14,
+    color: colors.darkGrey
   },
   addButton: {
-    ...roundedButton.button
-  },
-  addButtonText: {
-    fontSize: 20,
-    color: colors.white,
+    width: 30,
+    height: 30,
+    alignItems: 'center',
     justifyContent: 'center'
   }
 })
