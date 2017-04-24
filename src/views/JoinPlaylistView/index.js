@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View, StyleSheet, Button } from 'react-native'
 
 import contributorStore from '../ContributeView/contributorStore'
 import { colors, roundedButton, inputStyle, playlistStyle } from '../../styles/defaultStyles'
@@ -25,7 +25,7 @@ class JoinPlaylistView extends React.Component {
     this.props.navigation.goBack()
   }
   render () {
-    const { initialNag } = this.props.navigation.state.params ||  false
+    const { initialNag } = this.props.navigation.state.params || false
     return (
       <View style={styles.container}>
         <View style={styles.welcome}>
@@ -53,10 +53,15 @@ class JoinPlaylistView extends React.Component {
 
           <TouchableOpacity
             onPress={() => this.setPlaylist(this.state.playlistInput)}
-            style={roundedButton.button}
+            style={{ ...roundedButton.button, marginBottom: 20 }}
           >
             <Text style={roundedButton.title}>Join</Text>
           </TouchableOpacity>
+          <Button
+            onPress={() => this.props.navigation.goBack()}
+            title="Later" color={colors.accentColor}
+          />
+
         </View>
 
       </View>
