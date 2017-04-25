@@ -1,12 +1,12 @@
 import { NativeEventEmitter, NativeModules } from 'react-native'
-import { observable, action, autorun, computed } from 'mobx'
+import { observable, action, computed } from 'mobx'
 
 const SpotifyEventModule = NativeModules.SpotifyEventManager
 
 class MusicPlayerStore {
   @observable loggedIn = false
   @observable playing = false
-  @observable paused = false
+  @observable paused = true
   @observable playlist = []
   @observable history = []
   @observable currentTrack = {}
@@ -18,6 +18,10 @@ class MusicPlayerStore {
 
   @computed get isHosting () {
     return this.hostedPlaylistName !== undefined && this.hostedPlaylistName.length > 0
+  }
+
+  @action setHostingList (playlist) {
+    this.hostedPlaylistName = playlist
   }
 
   @action setPlaylist (playlist) {

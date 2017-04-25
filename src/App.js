@@ -52,10 +52,10 @@ export default class Spotily extends Component {
     console.log('trying to register notifications...')
     NotificationStore.register()
     this.toast = this.toast.bind(this)
-    const toaster = autorun(() => {
-      console.log(NotificationStore.latestNotification)
-      this.toast('hello world')
-    })
+    // const toaster = autorun(() => {
+    //   console.log(NotificationStore.latestNotification)
+    //   this.toast('hello world')
+    // })
   }
   toast (text) {
     if (this.refs.toast) {

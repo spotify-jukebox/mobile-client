@@ -58,10 +58,10 @@ class JoinPlaylistView extends React.Component {
           >
             <Text style={roundedButton.title}>Join</Text>
           </TouchableOpacity>
-          {initialNag && <Button
+          <Button
             onPress={() => this.props.navigation.goBack()}
-            title="Later" color={colors.accentColor}
-          />}
+            title={initialNag ? 'Later' : 'Ok'} color={colors.accentColor}
+          />
 
         </View>
 

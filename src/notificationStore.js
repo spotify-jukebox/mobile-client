@@ -28,6 +28,10 @@ class NotificationStore {
     }
   }
 
+  @computed get hasToken () {
+    return this.deviceToken !== undefined && this.deviceToken.length > 0
+  }
+
   @action handleNotification (notification) {
     this.notifications.push(notification)
     this.latestNotification = notification

@@ -71,15 +71,15 @@ class MusicPlayerView extends React.Component {
   getAlbumArtUrl (albumUri) {
     const albumId = albumUri.split(":")[2]
     return fetch(`${SpotifyWebApi.url}/albums/${albumId}`)
-    .then(res => res.json())
-    .then((json) => {
-      console.log("Album art image urls: " + json.images)
-      return (json.images.length > 0) ? json.images[0] : {}
-    })
-    .catch((err) => {
-      console.log("Something went wrong getting track info.")
-      return {}
-    })
+      .then(res => res.json())
+      .then((json) => {
+        console.log("Album art image urls: " + json.images)
+        return (json.images.length > 0) ? json.images[0] : {}
+      })
+      .catch((err) => {
+        console.log("Something went wrong getting track info.")
+        return {}
+      })
   }
 
   componentDidMount () {
@@ -88,7 +88,7 @@ class MusicPlayerView extends React.Component {
       const metadata = this.parseTrackMetadata(data)
       this.getAlbumArtUrl(metadata.albumUri).then((albumArt) => {
         console.log("ALBUM ART URL: ", albumArt.url)
-        const metadataWithAlbumArt = {...metadata, albumArt: albumArt}
+        const metadataWithAlbumArt = { ...metadata, albumArt: albumArt }
         this.updateMetadata(metadataWithAlbumArt)
       })
     })
@@ -145,141 +145,142 @@ class MusicPlayerView extends React.Component {
             // this.queueNext()
           } else console.log(error)
         })
-      } else {
-        console.log('No tracks to play')
-      }
+    } else {
+      console.log('No tracks to play')
     }
+  }
 
-    stop () {
-      SpotifyModule.stop(() => { console.log('Stopped') })
-      playerStore.paused = false
-      playerStore.playing = false
-    }
+  stop () {
+    SpotifyModule.stop(() => { console.log('Stopped') })
+    playerStore.paused = false
+    playerStore.playing = false
+  }
 
-    updateMetadata (metadata) {
-      playerStore.currentTrack = metadata
-    }
+  updateMetadata (metadata) {
+    playerStore.currentTrack = metadata
+  }
 
-    updatePlaylist (songURIs) {
-      if (songURIs.length > 0) {
-        SpotifyModule.replaceURIs(
-          songURIs,
-          0,
-          (error) => {
-            console.log('Something went wrong: ', error)
-          }
-        )
-      }
-    }
-
-    queue (songURI) {
-      SpotifyModule.queue(
-        songURI,
+  updatePlaylist (songURIs) {
+    if (songURIs.length > 0) {
+      SpotifyModule.replaceURIs(
+        songURIs,
+        0,
         (error) => {
-          if (error) {
-            console.log('Something went wrong: ', error)
-          }
+          console.log('Something went wrong: ', error)
         }
       )
     }
-    skipNext () {
-      SpotifyModule.skipNext((res) => {
-        this.updatePlaybackStatus()
-        const next = this.nextTrack()
-        if (next) {
-          console.log('next: ', next)
-          playerStore.setPlaylist([
-            ...playerStore.playlist.slice(1)
-          ])
-        } else {
-          console.log('No songs in queue')
-        }
-      })
-    }
+  }
 
-    skipPrevious () {
-      SpotifyModule.skipPrevious((res) => {
-        this.updatePlaybackStatus()
-        const previous = this.previousTrack()
-        if (previous) {
-          playerStore.playlist = [
-            previous,
-            ...playerStore.playlist
-          ]
-          playerStore.history = [
-            ...playerStore.history.slice(1)
-          ]
-        } else {
-          console.log('No previous tracks')
-        }
-        // this.updateTracks()
-      })
-    }
-
-    togglePlayback (play) {
-      playerStore.playing = play
-      playerStore.paused = !play
-      SpotifyModule.setIsPlaying(play, err => console.log(err))
-    }
-    spotifyLogin () {
-      const options = {
-        clientID: 'f276a6769fd44a8c90def02576609c1b',
-        redirectURL: 'juke-auth://callback',
-        requestedScopes: ['streaming']
-      }
-
-      SpotifyModule.setClientID(options.clientID, options.redirectURL, options.requestedScopes, (error) => {
+  queue (songURI) {
+    SpotifyModule.queue(
+      songURI,
+      (error) => {
         if (error) {
-          console.log(error)
-        } else {
-          playerStore.loggedIn = true
-          console.log('login success')
+          console.log('Something went wrong: ', error)
         }
-      })
+      }
+    )
+  }
+  skipNext () {
+    SpotifyModule.skipNext((res) => {
+      this.updatePlaybackStatus()
+      const next = this.nextTrack()
+      if (next) {
+        console.log('next: ', next)
+        playerStore.setPlaylist([
+          ...playerStore.playlist.slice(1)
+        ])
+      } else {
+        console.log('No songs in queue')
+      }
+    })
+  }
+
+  skipPrevious () {
+    SpotifyModule.skipPrevious((res) => {
+      this.updatePlaybackStatus()
+      const previous = this.previousTrack()
+      if (previous) {
+        playerStore.playlist = [
+          previous,
+          ...playerStore.playlist
+        ]
+        playerStore.history = [
+          ...playerStore.history.slice(1)
+        ]
+      } else {
+        console.log('No previous tracks')
+      }
+      // this.updateTracks()
+    })
+  }
+
+  togglePlayback (play) {
+    playerStore.playing = play
+    playerStore.paused = !play
+    SpotifyModule.setIsPlaying(play, err => console.log(err))
+  }
+  spotifyLogin () {
+    const options = {
+      clientID: 'f276a6769fd44a8c90def02576609c1b',
+      redirectURL: 'juke-auth://callback',
+      requestedScopes: ['streaming']
     }
 
-    render () {
-      return (
-        <View style={styles.container}>
-          {(playerStore.loggedIn) ? (
-            <View>
-              {playerStore.playlist.map(song => (
-                <Text key={Math.random()}>{song}</Text>
-              ))}
-              <MetadataView metadata={playerStore.currentTrack} />
-              <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
-              <Button style={styles.button} onPress={this.queueSong} title="Update" />
-              <View style={styles.playerControls}>
-                <TouchableOpacity
-                  style={styles.playbutton}
-                  onPress={this.stop}
-                  >
-                  <Icon name="controller-stop" size={60} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.playbutton}
-                  onPress={() => this.play(playerStore.playlist.peek())}
-                  >
-                  {!playerStore.paused
-                    ? <Icon name="controller-play" size={120} />
-                  : <FoundationIcon name="pause" size={120} />
-              }
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.playbutton}
-              onPress={this.skipNext}
-              >
-              <Icon name="controller-next" size={60} />
-            </TouchableOpacity>
-
-          </View>
-        </View>) : (
-          <Button style={styles.button} onPress={this.spotifyLogin} title="Login" />
-        )
+    SpotifyModule.setClientID(options.clientID, options.redirectURL, options.requestedScopes, (error) => {
+      if (error) {
+        console.log(error)
+      } else {
+        playerStore.loggedIn = true
+        console.log('login success')
       }
-    </View>
-  )
-}
+    })
+  }
+
+  render () {
+    return (
+      <View style={styles.container}>
+        {(playerStore.loggedIn) ? (
+          <View>
+            {playerStore.playlist.map(song => (
+              <Text key={Math.random()}>{song}</Text>
+            ))}
+            <MetadataView metadata={playerStore.currentTrack} />
+            <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
+            <Button style={styles.button} onPress={this.queueSong} title="Update" />
+            <View style={styles.playerControls}>
+              <TouchableOpacity
+                style={{ flex: 1 }}
+                onPress={this.stop}
+              >
+                <Icon name="controller-stop" size={60} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.playbutton}
+                disabled={!playerStore.playlist}
+                onPress={() => this.play(playerStore.playlist.peek())}
+              >
+                {playerStore.paused
+                  ? <Icon name="controller-play" size={120} />
+                  : <FoundationIcon name="pause" size={120} />
+                }
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ flex: 1 }}
+                onPress={this.skipNext}
+              >
+                <Icon name="controller-next" size={60} />
+              </TouchableOpacity>
+
+            </View>
+          </View>) : (
+            <Button style={styles.button} onPress={this.spotifyLogin} title="Login" />
+          )
+        }
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -289,9 +290,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   playerControls: {
+    maxHeight: 140,
+    minHeight: 140,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  playbutton: {
+    flex: 2,
+    alignItems: 'center'
   },
   button: {
     backgroundColor: colors.testRed

@@ -1,6 +1,9 @@
 import React from 'react'
-import { Text, TextInput, TouchableOpacity, View, StyleSheet, Button } from 'react-native'
+import { Text, TouchableOpacity, View, StyleSheet, ActivityIndicator } from 'react-native'
 
+import { BackendApi } from '../config/ApiConfig'
+import playerStore from '../views/HostView/musicplayerStore'
+import notificationStore from '../notificationStore'
 import { colors, roundedButton, inputStyle, playlistStyle } from './../styles/defaultStyles'
 
 class CreateHostingListView extends React.Component {
@@ -11,28 +14,50 @@ class CreateHostingListView extends React.Component {
   }
   constructor() {
     super()
-    this.state = { playlistName: '', loading: false }
+    this.state = { playlistName: '', loading: false, error: '' }
     this.setHostingList = this.setHostingList.bind(this)
+    this.createHostingList = this.createHostingList.bind(this)
   }
-  setHostingList (input) {
+  setHostingList (playlist) {
+    playerStore.setHostingList(playlist)
     this.props.navigation.goBack()
   }
+  createHostingList () {
+    const { deviceToken } = notificationStore
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ devide_token: deviceToken, name: 'random name lol' })
+    }
+    this.setState({ loading: true })
+    fetch(`${BackendApi.baseUrl}/generate`, options)
+      .then(res => res.json())
+      .then((json) => {
+        this.setState({ loading: false, playlistName: json.token })
+      })
+      .catch((err) => {
+        this.setState({ loading: false, playlistName: null, error: 'Could not generate playlist' })
+      })
+  }
   render () {
-    const { loading, playlistName } = this.state
+    const { loading, playlistName, error } = this.state
     return (
       <View style={styles.container}>
         <View style={styles.welcome}>
           <Text style={styles.welcomeText}>
-            {!loading && playlistName && `New playlist was created: ${this.state.playlistName}`}
-            Create a new jukebox for your party?
+            {!loading && playlistName
+              ? `New playlist was created: ${playlistName}`
+              : 'Create a new jukebox for your party?'}
           </Text>
-
+          <ActivityIndicator size="large" animating={loading} />
         </View>
 
         <View style={styles.playlistForm}>
           <TouchableOpacity
-            onPress={() => this.setPlaylist(this.state.playlistInput)}
-            style={{ ...roundedButton.button }}
+            onPress={() => this.createHostingList()}
+            style={{ ...roundedButton.button, minWidth: 200 }}
           >
             <Text style={roundedButton.title}>Create</Text>
           </TouchableOpacity>
@@ -66,7 +91,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     paddingVertical: 200,
     backgroundColor: colors.lightGreen
   },
