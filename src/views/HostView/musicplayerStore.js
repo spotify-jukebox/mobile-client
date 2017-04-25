@@ -14,10 +14,6 @@ class MusicPlayerStore {
   @observable nextTrack = ''
   @observable spotifyEventEmitter = new NativeEventEmitter(SpotifyEventModule)
 
-  @computed get playlist () {
-    return this.internalPlaylist
-  }
-
   @action setPlaylist (playlist) {
     console.log(playlist)
     this.internalPlaylist = playlist

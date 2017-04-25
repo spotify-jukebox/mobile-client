@@ -1,11 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react'
 
-import { colors, baseStyles, roundedButton } from '../../../styles/defaultStyles'
-
+import { colors, roundedButton } from '../../../styles/defaultStyles'
 
 
 const MetadataView = observer(({metadata}) => {

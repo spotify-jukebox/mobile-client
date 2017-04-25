@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { colors, roundedButton } from '../../styles/defaultStyles'
+import { colors } from '../../styles/defaultStyles'
 
 import Player from './Player'
 
