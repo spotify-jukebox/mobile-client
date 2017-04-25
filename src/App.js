@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { AppRegistry } from 'react-native'
+import { View, AppRegistry } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
+import Toast, { DURATION } from 'react-native-easy-toast'
+import { autorun } from 'mobx'
 
 import JoinPlaylistView from './views/JoinPlaylistView'
 import ContributeView from './views/ContributeView'
 import HostView from './views/HostView'
-import PreferenceStore from './preferenceStore'
+import NotificationStore from './notificationStore'
 
 import { colors } from './styles/defaultStyles'
 
@@ -42,10 +44,31 @@ const Stack = StackNavigator(
 )
 
 export default class Spotily extends Component {
+  constructor() {
+    super()
+    console.log('trying to register notifications...')
+    NotificationStore.register()
+    this.toast = this.toast.bind(this)
+    const toaster = autorun(() => {
+      console.log(NotificationStore.latestNotification)
+      this.toast('hello world')
+    })
+  }
+  toast (text) {
+    if (this.refs.toast) {
+      this.refs.toast.show(text)
+    }
+  }
   componentDidMount () {
+    this.toast('did mount')
   }
   render () {
-    return <Stack />
+    return (
+      <View style={{ flex: 1 }}>
+        <Stack />
+        <Toast ref="toast" />
+      </View>
+    )
   }
 }
 

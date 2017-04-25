@@ -36,6 +36,7 @@
     "no-use-before-define": 1,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "space-before-function-paren": "off",
-    "react/prop-types": 1
+    "react/prop-types": 1,
+    "class-mehod-use-this": 1
   }
 }

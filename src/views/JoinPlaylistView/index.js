@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, TextInput, TouchableOpacity, View, StyleSheet, Button } from 'react-native'
 
 import contributorStore from '../ContributeView/contributorStore'
+import NotificationStore from '../../notificationStore'
 import { colors, roundedButton, inputStyle, playlistStyle } from '../../styles/defaultStyles'
 
 class JoinPlaylistView extends React.Component {
@@ -28,6 +29,7 @@ class JoinPlaylistView extends React.Component {
     const { initialNag } = this.props.navigation.state.params || false
     return (
       <View style={styles.container}>
+        <Text>{JSON.stringify(NotificationStore.data)}</Text>
         <View style={styles.welcome}>
           <Text style={styles.welcomeText}>
             {initialNag
