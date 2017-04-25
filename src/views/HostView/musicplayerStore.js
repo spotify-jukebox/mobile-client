@@ -6,7 +6,7 @@ const SpotifyEventModule = NativeModules.SpotifyEventManager
 class MusicPlayerStore {
   @observable loggedIn = false
   @observable playing = false
-  @observable paused = true
+  @observable paused = false
   @observable playlist = []
   @observable history = []
   @observable currentTrack = {}
