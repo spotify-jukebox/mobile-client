@@ -5,6 +5,7 @@ import Toast, { DURATION } from 'react-native-easy-toast'
 import { autorun } from 'mobx'
 
 import JoinPlaylistView from './views/JoinPlaylistView'
+import CreateHostingListView from './views/CreateHostingListView'
 import ContributeView from './views/ContributeView'
 import HostView from './views/HostView'
 import NotificationStore from './notificationStore'
@@ -20,6 +21,7 @@ const MainScreenNavigator = TabNavigator(
       screen: HostView
     }
   }, {
+    lazyLoad: true,
     tabBarOptions: {
       activeTintColor: colors.accentColorDark,
       activeBackgroundColor: colors.barColor,
@@ -35,7 +37,8 @@ MainScreenNavigator.navigationOptions = {
 const Stack = StackNavigator(
   {
     Bottom: { screen: MainScreenNavigator },
-    JoinPlaylist: { screen: JoinPlaylistView }
+    JoinPlaylist: { screen: JoinPlaylistView },
+    CreateHostingList: { screen: CreateHostingListView }
   },
   {
     mode: 'modal',

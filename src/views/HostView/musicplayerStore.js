@@ -1,4 +1,4 @@
-import { NativeEventEmitter, NativeModules } from 'react-native'
+import { NativeEventEmitter, NativeModules } from 'react-native'
 import { observable, action, autorun, computed } from 'mobx'
 
 const SpotifyEventModule = NativeModules.SpotifyEventManager
@@ -14,6 +14,12 @@ class MusicPlayerStore {
   @observable spliced = 0
   @observable nextTrack = ''
   @observable spotifyEventEmitter = new NativeEventEmitter(SpotifyEventModule)
+
+  @observable hostedPlaylistName = ''
+
+  @computed get isHosting () {
+    return this.hostedPlaylistName !== undefined && this.hostedPlaylistName.length > 0
+  }
 
   @action setPlaylist (playlist) {
     console.log(playlist)
