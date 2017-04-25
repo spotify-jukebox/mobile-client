@@ -29,12 +29,14 @@ class CreateHostingListView extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ devide_token: deviceToken, name: 'random name lol' })
+      body: JSON.stringify({ device_token: deviceToken, name: 'random name lol' })
     }
+    console.log(options)
     this.setState({ loading: true })
     fetch(`${BackendApi.baseUrl}/generate`, options)
       .then(res => res.json())
       .then((json) => {
+        console.log(json)
         this.setState({ loading: false, playlistName: json.token })
       })
       .catch((err) => {
@@ -52,14 +54,15 @@ class CreateHostingListView extends React.Component {
               : 'Create a new jukebox for your party?'}
           </Text>
           <ActivityIndicator size="large" animating={loading} />
+          <Text>{error}</Text>
         </View>
 
         <View style={styles.playlistForm}>
           <TouchableOpacity
-            onPress={() => this.createHostingList()}
+            onPress={() => !playlistName ? this.createHostingList() : this.setHostingList(playlistName)}
             style={{ ...roundedButton.button, minWidth: 200 }}
           >
-            <Text style={roundedButton.title}>Create</Text>
+            <Text style={roundedButton.title}>{!playlistName ? 'Create' : 'OK'}</Text>
           </TouchableOpacity>
         </View>
 

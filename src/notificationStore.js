@@ -1,6 +1,7 @@
 import React from 'react'
 import { PushNotificationIOS, AsyncStorage } from 'react-native'
 import { observable, computed, action } from 'mobx'
+import musicPlayerStore from './views/HostView/musicplayerStore'
 
 const storageID = 'SpotilyJukeboxStorage'
 
@@ -32,23 +33,23 @@ class NotificationStore {
     return this.deviceToken !== undefined && this.deviceToken.length > 0
   }
 
-  @action handleNotification (notification) {
-    this.notifications.push(notification)
-    this.latestNotification = notification
-  }
-
   notificationCallback (notification) {
     console.log('got notification')
-    console.log(notification)
-    this.handleNotification(notification)
+    const { _data: data } = notification
+    console.log(data)
+    this.notifications.push(data)
+    if (data.track_url) {
+      musicPlayerStore.addNewTrack(data.track_url)
+    }
+    this.latestNotification = data
   }
 
   setListeners () {
     console.log('registering listeners')
-    PushNotificationIOS.addEventListener('register', this.registerCallback)
-    PushNotificationIOS.addEventListener('registrationError', this.callback)
-    PushNotificationIOS.addEventListener('notification', this.callback)
-    PushNotificationIOS.addEventListener('localNotification', this.callback)
+    PushNotificationIOS.addEventListener('register', this.registerCallback.bind(this))
+    PushNotificationIOS.addEventListener('registrationError', this.callback.bind(this))
+    PushNotificationIOS.addEventListener('notification', this.notificationCallback.bind(this))
+    PushNotificationIOS.addEventListener('localNotification', this.callback.bind(this))
     console.log('done registering listeners')
   }
 
@@ -61,7 +62,6 @@ class NotificationStore {
         if (value !== null) {
           // We have data!!
           this.deviceToken = value
-          console.log(value)
         } else {
           console.log('require request permission')
           PushNotificationIOS.requestPermissions()

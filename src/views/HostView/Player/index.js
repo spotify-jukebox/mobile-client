@@ -256,6 +256,7 @@ class MusicPlayerView extends React.Component {
             {playerStore.playlist.map(song => (
               <Text key={Math.random()}>{song}</Text>
             ))}
+            <Text>Hosting list: {playerStore.hostedPlaylistName}</Text>
             <MetadataView metadata={playerStore.currentTrack} />
             <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
             <Button style={styles.button} onPress={this.queueSong} title="Update" />
