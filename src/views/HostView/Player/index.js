@@ -243,8 +243,9 @@ class MusicPlayerView extends React.Component {
         <View style={styles.container}>
           {(playerStore.loggedIn) ? (
             <View>
-
-<<<<<<< HEAD
+              {playerStore.playlist.map(song => (
+                <Text key={Math.random()}>{song}</Text>
+              ))}
               <MetadataView metadata={playerStore.currentTrack} />
               <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
               <Button style={styles.button} onPress={this.queueSong} title="Update" />
@@ -261,32 +262,6 @@ class MusicPlayerView extends React.Component {
                   >
                   {!playerStore.paused
                     ? <Icon name="controller-play" size={120} />
-=======
-  render () {
-    return (
-      <View style={styles.container}>
-        {(playerStore.loggedIn) ? (
-          <View>
-            {playerStore.playlist.map(song => (
-              <Text key={Math.random()}>{song}</Text>
-            ))}
-            <MetadataView metadata={playerStore.currentTrack} />
-            <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
-            <Button style={styles.button} onPress={this.queueSong} title="Update" />
-            <View style={styles.playerControls}>
-              <TouchableOpacity
-                style={styles.playbutton}
-                onPress={this.stop}
-              >
-                <Icon name="controller-stop" size={60} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.playbutton}
-                onPress={() => this.play(playerStore.playlist.peek())}
-              >
-                {!playerStore.paused
-                  ? <Icon name="controller-play" size={120} />
->>>>>>> 34a86841d9dd291233696eb1ab8d7ddc2dfad40d
                   : <FoundationIcon name="pause" size={120} />
               }
             </TouchableOpacity>
