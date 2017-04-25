@@ -29,7 +29,6 @@ class JoinPlaylistView extends React.Component {
     const { initialNag } = this.props.navigation.state.params || false
     return (
       <View style={styles.container}>
-        <Text>{JSON.stringify(NotificationStore.data)}</Text>
         <View style={styles.welcome}>
           <Text style={styles.welcomeText}>
             {initialNag

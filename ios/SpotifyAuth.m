@@ -136,6 +136,32 @@ RCT_EXPORT_METHOD(targetBitrate:(RCTResponseSenderBlock)block)
 }
 
 ///-----------------------------
+/// Events
+///-----------------------------
+
+//
+//- (NSArray<NSString *> *)supportedEvents
+//{
+//  return @[@"audioStreamingDidChangeToTrack",
+//           @"audioStreamingDidStartPlayingTrack"];
+//}
+//
+//- (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didChangeToTrack:(NSDictionary *)metadata
+//{
+//  NSLog(@"Event didChangeToTrack sent.");
+//  [self sendEventWithName:@"audioStreamingDidChangeToTrack" body: metadata];
+//}
+//
+//- (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStartPlayingTrack:(NSURL *)trackUri
+//{
+//  NSLog(@"Event didStartPlayingTrack sent.");
+//  [self sendEventWithName:@"audioStreamingDidStartPlayingTrack" body: trackUri];
+//}
+
+
+
+
+///-----------------------------
 /// Methods
 ///-----------------------------
 
@@ -304,6 +330,7 @@ RCT_EXPORT_METHOD(stop:(RCTResponseSenderBlock)block)
 //Go to the next track in the queue
 RCT_EXPORT_METHOD(skipNext:(RCTResponseSenderBlock)block)
 {
+  NSLog(@"NSLOG skipping next.");
   SPTAudioStreamingController *sharedIn = [SPTAudioStreamingController sharedInstance];
   [sharedIn skipNext:^(NSError *error) {
     if(error == nil){

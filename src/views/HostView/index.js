@@ -1,5 +1,4 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { colors, roundedButton } from '../../styles/defaultStyles'
@@ -9,7 +8,10 @@ import Player from './Player'
 class HostView extends React.Component {
   static navigationOptions = {
     header: {
-      visible: false
+      title: 'Host',
+      visible: true,
+      style: { backgroundColor: colors.barColor },
+      titleStyle: { color: colors.barTextColor }
     },
     tabBar: {
       label: 'Host',
@@ -19,29 +21,8 @@ class HostView extends React.Component {
     }
   }
   render () {
-    return (
-      <View style={styles.container}>
-        <Text>Host</Text>
-        <Player />
-      </View>
-    )
+    return <Player />
   }
 }
 
 export default HostView
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.white
-  },
-  welcome: {
-    fontSize: 30,
-    textAlign: 'center',
-    fontWeight: '400',
-    color: colors.accentColor,
-    margin: 20
-  }
-})
