@@ -7,7 +7,6 @@ class MusicPlayerStore {
   @observable loggedIn = false
   @observable playing = false
   @observable paused = false
-  @observable metadata = {}
   @observable playlist = []
   @observable history = []
   @observable currentTrack = {}
@@ -24,7 +23,7 @@ class MusicPlayerStore {
   @action setPlaylist (playlist) {
     console.log(playlist)
     this.playlist = playlist
-    this.currentTrack = playlist[0]
+    // this.currentTrack = playlist[0]
   }
 }
 
