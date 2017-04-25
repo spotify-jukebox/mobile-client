@@ -8,20 +8,16 @@ class MusicPlayerStore {
   @observable playing = false
   @observable paused = false
   @observable metadata = {}
-  @observable internalPlaylist = []
+  @observable playlist = []
   @observable history = []
   @observable currentTrack = {}
   @observable spliced = 0
   @observable nextTrack = ''
   @observable spotifyEventEmitter = new NativeEventEmitter(SpotifyEventModule)
 
-  @computed get playlist () {
-    return this.internalPlaylist
-  }
-
   @action setPlaylist (playlist) {
     console.log(playlist)
-    this.internalPlaylist = playlist
+    this.playlist = playlist
     this.currentTrack = playlist[0]
   }
 }
