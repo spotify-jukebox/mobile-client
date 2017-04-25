@@ -262,7 +262,7 @@ class MusicPlayerView extends React.Component {
                 disabled={!playerStore.playlist}
                 onPress={() => this.play(playerStore.playlist.peek())}
               >
-                {playerStore.paused
+                {!playerStore.playing
                   ? <Icon name="controller-play" size={120} />
                   : <FoundationIcon name="pause" size={120} />
                 }
