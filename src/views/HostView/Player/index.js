@@ -67,7 +67,8 @@ class MusicPlayerView extends React.Component {
   componentDidMount() {
     this.props.store.spotifyEventEmitter.addListener("audioStreamingDidChangeToTrack", (data) => {
       console.log("Event audioStreamingDidChangeToTrack received with data: ", data)
-      this.updateMetadata(this.parseTrackMetadata(data))
+      const metadata = this.parseTrackMetadata(data)
+      this.updateMetadata(metadata)
     })
   }
 
@@ -83,7 +84,6 @@ class MusicPlayerView extends React.Component {
   }
 
   initPlaylist() {
-    console.log("Queuing songs...: ", mockPlaylist)
     this.props.store.playlist = mockPlaylist
     this.props.store.currentTrack = mockPlaylist[0]
   }
@@ -184,13 +184,8 @@ class MusicPlayerView extends React.Component {
         const next = this.nextTrack()
         if (next) {
           console.log("next: ", next)
-          this.props.store.currentTrack = next
           this.props.store.playlist = [
             ...this.props.store.playlist.slice(1)
-          ]
-          this.props.store.history = [
-            this.props.store.currentTrack,
-            ...this.props.store.history
           ]
         } else {
           console.log("No songs in queue")
@@ -203,8 +198,6 @@ class MusicPlayerView extends React.Component {
         this.updatePlaybackStatus()
         const previous = this.previousTrack()
         if (previous) {
-          console.log("previous: ", previous)
-          this.props.store.currentTrack = previous
           this.props.store.playlist = [
             previous,
             ...this.props.store.playlist
@@ -212,7 +205,6 @@ class MusicPlayerView extends React.Component {
           this.props.store.history = [
             ...this.props.store.history.slice(1)
           ]
-          this.play(previous)
         } else {
           console.log("No previous tracks")
         }
