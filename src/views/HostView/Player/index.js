@@ -3,7 +3,7 @@ import { ScrollView, View, Text, NativeModules, NativeEventEmitter, StyleSheet }
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { observer } from 'mobx-react'
-import { observable, autorun } from 'mobx';
+import { observable, action, autorun } from 'mobx';
 
 import Button from '../../../reusable/button'
 import MetadataView from './MetadataView'
@@ -19,6 +19,7 @@ const SpotifyEventModule = NativeModules.SpotifyEventManager
 class MusicPlayerStore {
   @observable loggedIn = false
   @observable playing = false
+  @observable paused = false
   @observable metadata = {}
   @observable playlist = []
   @observable history = []
@@ -36,10 +37,12 @@ class MusicPlayerView extends React.Component {
     super()
     this.spotifyLogin = this.spotifyLogin.bind(this)
     this.play = this.play.bind(this)
+    this.stop = this.stop.bind(this)
     this.queueSong = this.queueSong.bind(this)
     this.togglePlayback = this.togglePlayback.bind(this)
     this.updateMetadata = this.updateMetadata.bind(this)
     this.updatePlaylist = this.updatePlaylist.bind(this)
+    this.updatePlaybackStatus = this.updatePlaybackStatus.bind(this)
     this.skipNext = this.skipNext.bind(this)
     this.skipPrevious = this.skipPrevious.bind(this)
     this.initPlaylist = this.initPlaylist.bind(this)
@@ -74,8 +77,9 @@ class MusicPlayerView extends React.Component {
 
   componentWillMount() {
     SpotifyModule.loggedIn((res) => {
-      this.loggedIn = res
+      this.props.store.loggedIn = res
     })
+    this.updatePlaybackStatus()
   }
 
   initPlaylist() {
@@ -105,8 +109,20 @@ class MusicPlayerView extends React.Component {
     return (previous) ? previous : ""
   }
 
+  updatePlaybackStatus() {
+    SpotifyModule.isPlaying((res) => {
+      this.props.store.playing = res
+    })
+  }
+
   play(songURIs) {
-    if (this.props.store.playlist.length > 0) {
+    const playing = this.props.store.playing
+    const paused = this.props.store.paused
+    if (playing && !paused) {
+      this.togglePlayback(false)
+    } else if (paused) {
+      this.togglePlayback(true)
+    } else if (this.props.store.playlist.length > 0) {
       const options = {
         trackIndex: 0,
         startTime: 0.0
@@ -127,6 +143,12 @@ class MusicPlayerView extends React.Component {
       } else {
         console.log("No tracks to play")
       }
+    }
+
+    stop() {
+      SpotifyModule.stop(() => {console.log("Stopped")})
+      this.props.store.paused = false
+      this.props.store.playing = false
     }
 
     updateMetadata(metadata) {
@@ -158,6 +180,7 @@ class MusicPlayerView extends React.Component {
     }
     skipNext() {
       SpotifyModule.skipNext((res) => {
+        this.updatePlaybackStatus()
         const next = this.nextTrack()
         if (next) {
           console.log("next: ", next)
@@ -177,6 +200,7 @@ class MusicPlayerView extends React.Component {
 
     skipPrevious() {
       SpotifyModule.skipPrevious((res) => {
+        this.updatePlaybackStatus()
         const previous = this.previousTrack()
         if (previous) {
           console.log("previous: ", previous)
@@ -196,11 +220,10 @@ class MusicPlayerView extends React.Component {
       })
     }
 
-    togglePlayback() {
-      const now = this.props.store.playing
-      this.props.store.playing = !now
-      SpotifyModule.currentTrackIndex((res) => console.log("Current trackindex:", res))
-      SpotifyModule.setIsPlaying(!now, (err) => console.log(err))
+    togglePlayback(play) {
+      this.props.store.playing = play
+      this.props.store.paused = !play
+      SpotifyModule.setIsPlaying(play, (err) => console.log(err))
     }
     spotifyLogin() {
       const options = {
@@ -227,6 +250,7 @@ class MusicPlayerView extends React.Component {
             <View>
               <MetadataView metadata={store.currentTrack} />
               <Button style={styles.button} onPress={() => this.play(store.playlist.peek())} title="Play" />
+              <Button style={styles.button} onPress={this.stop} title="Stop" />
               <Button style={styles.button} onPress={this.skipNext} title="Next" />
               <Button style={styles.button} onPress={this.skipPrevious} title="Previous" />
               <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
