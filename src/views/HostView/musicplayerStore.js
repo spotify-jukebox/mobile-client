@@ -10,7 +10,7 @@ class MusicPlayerStore {
   @observable playlist = []
   @observable history = []
   @observable currentTrack = {}
-  @observable spliced = 0
+  @observable spliced = false
   @observable nextTrack = ''
   @observable spotifyEventEmitter = new NativeEventEmitter(SpotifyEventModule)
 
@@ -22,6 +22,10 @@ class MusicPlayerStore {
 
   @action setHostingList (playlist) {
     this.hostedPlaylistName = playlist
+  }
+
+  @action addToPlaylist (tracks, i) {
+    this.playlist = [...this.playlist.slice(i), ...tracks]
   }
 
   @action setPlaylist (playlist) {

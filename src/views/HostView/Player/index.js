@@ -11,7 +11,7 @@ import MetadataView from './MetadataView'
 import { baseStyles, colors } from '../../../styles/defaultStyles'
 
 import mockPlaylist from '../../../data/mockPlaylist'
-import { SpotifyWebApi } from '../../../config/ApiConfig'
+import { SpotifyWebApi, BackendApi } from '../../../config/ApiConfig'
 
 const SpotifyModule = NativeModules.SpotifyAuth
 
@@ -67,6 +67,13 @@ class MusicPlayerView extends React.Component {
     playerStore.setPlaylist(mockPlaylist)
   }
 
+  fetchNextSongsFromServer () {
+    return fetch(`${BackendApi.url}/list/${playerStore.hostedPlaylistName}`)
+      .then(res => res.json())
+      .then(json => {
+        playerStore.addToPlaylist(json.tracks)
+      })
+  }
 
   getAlbumArtUrl (albumUri) {
     const albumId = albumUri.split(":")[2]
@@ -91,6 +98,9 @@ class MusicPlayerView extends React.Component {
         const metadataWithAlbumArt = { ...metadata, albumArt: albumArt }
         this.updateMetadata(metadataWithAlbumArt)
       })
+    })
+    playerStore.spotifyEventEmitter.addListener("audioStreamingDidStopPlayingTrack", (data) => {
+
     })
   }
 
