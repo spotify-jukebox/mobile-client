@@ -21,6 +21,7 @@ class MusicPlayerStore {
   }
 
   @action setHostingList (playlist) {
+    console.log('store list set as ' + playlist)
     this.hostedPlaylistName = playlist
   }
 
@@ -28,6 +29,10 @@ class MusicPlayerStore {
     console.log(playlist)
     this.playlist = playlist
     // this.currentTrack = playlist[0]
+  }
+
+  @action addNewTrack (trackUri) {
+    this.playlist.push(trackUri)
   }
 }
 
