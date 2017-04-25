@@ -35,6 +35,8 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* SpotilyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SpotilyTests.m */; };
+		470455531EAE87EA00783810 /* SpotifyEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470455521EAE87EA00783810 /* SpotifyEventManager.swift */; };
+		4704556F1EAE913900783810 /* SpotifyEventManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4704556E1EAE913900783810 /* SpotifyEventManagerBridge.m */; };
 		47F37F161EA7E8FC002E23BB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F37F151EA7E8FC002E23BB /* WebKit.framework */; };
 		47F37F321EA7E9FD002E23BB /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F37F311EA7E9FD002E23BB /* Spotify.framework */; };
 		47F37F371EA7F2B4002E23BB /* SpotifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F37F341EA7F2B4002E23BB /* SpotifyAuth.m */; };
@@ -277,6 +279,9 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Spotily-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spotily-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Spotily-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spotily-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		470455511EAE87EA00783810 /* Spotily-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotily-Bridging-Header.h"; sourceTree = "<group>"; };
+		470455521EAE87EA00783810 /* SpotifyEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyEventManager.swift; sourceTree = "<group>"; };
+		4704556E1EAE913900783810 /* SpotifyEventManagerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyEventManagerBridge.m; sourceTree = "<group>"; };
 		47F37F151EA7E8FC002E23BB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		47F37F311EA7E9FD002E23BB /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		47F37F331EA7F2B4002E23BB /* SpotifyAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyAuth.h; sourceTree = "<group>"; };
@@ -451,6 +456,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				470455521EAE87EA00783810 /* SpotifyEventManager.swift */,
+				4704556E1EAE913900783810 /* SpotifyEventManagerBridge.m */,
+				470455511EAE87EA00783810 /* Spotily-Bridging-Header.h */,
 			);
 			name = Spotily;
 			sourceTree = "<group>";
@@ -669,6 +677,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = W9M5L93W23;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1033,9 +1042,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4704556F1EAE913900783810 /* SpotifyEventManagerBridge.m in Sources */,
 				47F37F371EA7F2B4002E23BB /* SpotifyAuth.m in Sources */,
 				47F37F381EA7F2B4002E23BB /* SpotifyLoginViewController.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				470455531EAE87EA00783810 /* SpotifyEventManager.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1088,6 +1099,7 @@
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W9M5L93W23;
@@ -1114,6 +1126,7 @@
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1138,6 +1151,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Spotily/Spotily.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1155,6 +1169,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.vaaraj.jukeboxly;
 				PRODUCT_NAME = Spotily;
+				SWIFT_OBJC_BRIDGING_HEADER = "Spotily-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1163,6 +1180,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Spotily/Spotily.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W9M5L93W23;
@@ -1179,6 +1197,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fi.vaaraj.jukeboxly;
 				PRODUCT_NAME = Spotily;
+				SWIFT_OBJC_BRIDGING_HEADER = "Spotily-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
