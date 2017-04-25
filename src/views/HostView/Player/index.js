@@ -44,13 +44,6 @@ class MusicPlayerView extends React.Component {
     this.updatePlaybackStatus()
   }
 
-  componentDidMount () {
-    playerStore.spotifyEventEmitter.addListener('audioStreamingDidChangeToTrack', (data) => {
-      console.log('Event audioStreamingDidChangeToTrack received with data: ', data)
-      const metadata = this.parseTrackMetadata(data)
-      this.updateMetadata(metadata)
-    })
-  }
 
   componentWillUnmount () {
     playerStore.spotifyEventEmitter.removeSubscription('audioStreamingDidChangeToTrack')
@@ -75,7 +68,7 @@ class MusicPlayerView extends React.Component {
   }
 
 
-  getAlbumArtUrl(albumUri) {
+  getAlbumArtUrl (albumUri) {
     const albumId = albumUri.split(":")[2]
     return fetch(`${SpotifyWebApi.url}/albums/${albumId}`)
     .then(res => res.json())
@@ -89,8 +82,8 @@ class MusicPlayerView extends React.Component {
     })
   }
 
-  componentDidMount() {
-    this.props.store.spotifyEventEmitter.addListener("audioStreamingDidChangeToTrack", (data) => {
+  componentDidMount () {
+    playerStore.spotifyEventEmitter.addListener("audioStreamingDidChangeToTrack", (data) => {
       console.log("Event audioStreamingDidChangeToTrack received with data: ", data)
       const metadata = this.parseTrackMetadata(data)
       this.getAlbumArtUrl(metadata.albumUri).then((albumArt) => {
@@ -99,17 +92,6 @@ class MusicPlayerView extends React.Component {
         this.updateMetadata(metadataWithAlbumArt)
       })
     })
-  }
-
-  componentWillUnmount() {
-    this.props.store.spotifyEventEmitter.removeSubscription("audioStreamingDidChangeToTrack")
-  }
-
-  componentWillMount() {
-    SpotifyModule.loggedIn((res) => {
-      this.props.store.loggedIn = res
-    })
-    this.updatePlaybackStatus()
   }
 
   queueSong () {
@@ -175,8 +157,7 @@ class MusicPlayerView extends React.Component {
     }
 
     updateMetadata (metadata) {
-      const store = playerStore
-      store.currentTrack = metadata
+      playerStore.currentTrack = metadata
     }
 
     updatePlaylist (songURIs) {
@@ -207,9 +188,9 @@ class MusicPlayerView extends React.Component {
         const next = this.nextTrack()
         if (next) {
           console.log('next: ', next)
-          playerStore.playlist = [
+          playerStore.setPlaylist([
             ...playerStore.playlist.slice(1)
-          ]
+          ])
         } else {
           console.log('No songs in queue')
         }

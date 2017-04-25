@@ -25,7 +25,8 @@ const MetadataView = observer(({metadata}) => {
         : <Text>Nothing playing.</Text>
     }
   </View>
-))
+)
+})
 
 const styles = StyleSheet.create({
   songName: {
