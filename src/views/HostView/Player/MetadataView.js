@@ -15,11 +15,13 @@ const MetadataView = observer(({ metadata }) => {
           <Image
             style={styles.albumArt}
             source={{ uri: metadata.albumArt.url }}
-          />
-          <Text>{metadata.trackName}</Text>
-          <Text>{metadata.albumName}</Text>
-          <Text>{metadata.artistName}</Text>
-          <Text>{Math.floor(metadata.trackDuration / 60.0)}</Text>
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.songName}>{metadata.trackName}</Text>
+              <Text style={styles.albumName}>{metadata.albumName}</Text>
+              <Text style={styles.songArtist}>{metadata.artistName}</Text>
+            </View>
+          </Image>
         </View>
         : <Text>Nothing playing.</Text>
       }
@@ -29,22 +31,33 @@ const MetadataView = observer(({ metadata }) => {
 
 const styles = StyleSheet.create({
   songName: {
-    fontSize: 16
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    letterSpacing: 2,
+    backgroundColor: 'white',
+    padding: 4
+  },
+  albumName: {
+    fontSize: 28,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    padding: 4
   },
   songArtist: {
-    fontSize: 14
-  },
-  addButton: {
-    ...roundedButton.button
+    fontSize: 24,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    padding: 4
   },
   albumArt: {
     height: width,
-    width
+    width,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  addButtonText: {
-    fontSize: 20,
-    color: colors.white,
-    justifyContent: 'center'
+  textContainer: {
+    alignItems: 'center'
   }
 })
 

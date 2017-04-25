@@ -260,10 +260,9 @@ class MusicPlayerView extends React.Component {
             <Button style={styles.button} onPress={this.queueSong} title="Update" />
             <View style={styles.playerControls}>
               <TouchableOpacity
-                style={{ flex: 1 }}
                 onPress={this.stop}
               >
-                <Icon name="controller-stop" size={60} />
+                <Icon name="controller-stop" size={40} color={colors.darkGrey} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.playbutton}
@@ -271,15 +270,14 @@ class MusicPlayerView extends React.Component {
                 onPress={() => this.play(playerStore.playlist.peek())}
               >
                 {!playerStore.playing
-                  ? <Icon name="controller-play" size={120} />
-                  : <FoundationIcon name="pause" size={120} />
+                  ? <Icon name="controller-play" size={90} />
+                  : <FoundationIcon name="pause" size={90} />
                 }
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ flex: 1 }}
                 onPress={this.skipNext}
               >
-                <Icon name="controller-next" size={60} />
+                <Icon name="controller-next" size={40} color={colors.darkGrey} />
               </TouchableOpacity>
 
             </View>
@@ -303,11 +301,13 @@ const styles = StyleSheet.create({
     minHeight: 140,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-around'
   },
   playbutton: {
-    flex: 2,
-    alignItems: 'center'
+    alignItems: 'center',
+    width: 100,
+    minWidth: 100,
+    maxWidth: 100
   },
   button: {
     backgroundColor: colors.testRed
