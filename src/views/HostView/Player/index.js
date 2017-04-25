@@ -1,17 +1,19 @@
 import React from 'react'
-import { ScrollView, View, Text, NativeModules, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, NativeModules, NativeEventEmitter, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { observer } from 'mobx-react'
 import { observable, autorun } from 'mobx';
 
 import Button from '../../../reusable/button'
+import MetadataView from './MetadataView'
 
-import { baseStyles } from '../../../styles/defaultStyles'
+import { baseStyles, colors } from '../../../styles/defaultStyles'
 
 import mockPlaylist from '../../../data/mockPlaylist'
 
 var SpotifyModule = NativeModules.SpotifyAuth
+const SpotifyEventModule = NativeModules.SpotifyEventManager
 
 
 class MusicPlayerStore {
@@ -20,9 +22,10 @@ class MusicPlayerStore {
   @observable metadata = {}
   @observable playlist = []
   @observable history = []
-  @observable currentTrack = ""
+  @observable currentTrack = {}
   @observable spliced = 0
   @observable nextTrack = ""
+  @observable spotifyEventEmitter = new NativeEventEmitter(SpotifyEventModule)
 }
 
 
@@ -35,15 +38,38 @@ class MusicPlayerView extends React.Component {
     this.play = this.play.bind(this)
     this.queueSong = this.queueSong.bind(this)
     this.togglePlayback = this.togglePlayback.bind(this)
+    this.updateMetadata = this.updateMetadata.bind(this)
     this.updatePlaylist = this.updatePlaylist.bind(this)
     this.skipNext = this.skipNext.bind(this)
     this.skipPrevious = this.skipPrevious.bind(this)
     this.initPlaylist = this.initPlaylist.bind(this)
     this.nextTrack = this.nextTrack.bind(this)
     this.previousTrack = this.previousTrack.bind(this)
+    this.parseTrackMetadata = this.parseTrackMetadata.bind(this)
+  }
+
+  parseTrackMetadata(metadata) {
+    const metadataWithShorterKeys = {
+      artistName: metadata.SPTAudioStreamingMetadataArtistName,
+      artistUri: metadata.SPTAudioStreamingMetadataArtistURI,
+      albumName: metadata.SPTAudioStreamingMetadataAlbumName,
+      albumUri: metadata.SPTAudioStreamingMetadataAlbumURI,
+      trackName: metadata.SPTAudioStreamingMetadataTrackName,
+      trackUri: metadata.SPTAudioStreamingMetadataTrackURI,
+      trackDuration: metadata.SPTAudioStreamingMetadataTrackDuration
+    }
+    return metadataWithShorterKeys
   }
 
   componentDidMount() {
+    this.props.store.spotifyEventEmitter.addListener("audioStreamingDidChangeToTrack", (data) => {
+      console.log("Event audioStreamingDidChangeToTrack received with data: ", data)
+      this.updateMetadata(this.parseTrackMetadata(data))
+    })
+  }
+
+  componentWillUnmount() {
+    this.props.store.spotifyEventEmitter.removeSubscription("audioStreamingDidChangeToTrack")
   }
 
   componentWillMount() {
@@ -101,6 +127,11 @@ class MusicPlayerView extends React.Component {
       } else {
         console.log("No tracks to play")
       }
+    }
+
+    updateMetadata(metadata) {
+      const store = this.props.store
+      store.currentTrack = metadata
     }
 
     updatePlaylist(songURIs) {
@@ -194,16 +225,7 @@ class MusicPlayerView extends React.Component {
         <View style={styles.container}>
           {(store.loggedIn) ? (
             <View>
-              <View>
-                <Text>Playlist:</Text>
-                <Text>{store.playlist}</Text>
-              </View>
-              <View>
-                <Text>Current track: {store.currentTrack}</Text>
-                <Text>Next up: {store.nextTrack}</Text>
-                <Text>Playing: {(store.playing) ? "true" : "false"}</Text>
-              </View>
-
+              <MetadataView metadata={store.currentTrack} />
               <Button style={styles.button} onPress={() => this.play(store.playlist.peek())} title="Play" />
               <Button style={styles.button} onPress={this.skipNext} title="Next" />
               <Button style={styles.button} onPress={this.skipPrevious} title="Previous" />
@@ -224,7 +246,7 @@ class MusicPlayerView extends React.Component {
       ...baseStyles.container
     },
     button: {
-      flex: 0,
+      backgroundColor: colors.testRed,
       marginTop: 10,
     }
   })
