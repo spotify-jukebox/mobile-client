@@ -29,7 +29,7 @@ class MusicPlayerView extends React.Component {
     this.updatePlaylist = this.updatePlaylist.bind(this)
     this.updatePlaybackStatus = this.updatePlaybackStatus.bind(this)
     this.skipNext = this.skipNext.bind(this)
-    this.skipPrevious = this.skipPrevious.bind(this)
+    // this.skipPrevious = this.skipPrevious.bind(this)
     this.initPlaylist = this.initPlaylist.bind(this)
     this.nextTrack = this.nextTrack.bind(this)
     this.previousTrack = this.previousTrack.bind(this)
@@ -100,16 +100,16 @@ class MusicPlayerView extends React.Component {
       })
     })
     playerStore.spotifyEventEmitter.addListener("audioStreamingDidStopPlayingTrack", (data) => {
-
+      // SpotifyModule.replaceURIs()
     })
   }
 
   queueSong () {
     SpotifyModule.currentTrackIndex((index) => {
       const store = playerStore
-      const spliceAmount = (store.splicedSongs > index) ? index : index - store.splicedSongs
-      store.splicedSongs = (spliceAmount > index) ? spliceAmount : store.splicedSongs + spliceAmount
-      const updatedPlaylist = [...playerStore.playlist.slice(spliceAmount), 'spotify:track:2SpEHTbUuebeLkgs9QB7Ue']
+      // const spliceAmount = (store.splicedSongs > index) ? index : index - store.splicedSongs
+      // store.splicedSongs = (spliceAmount > index) ? spliceAmount : store.splicedSongs + spliceAmount
+      const updatedPlaylist = [...playerStore.playlist, 'spotify:track:2SpEHTbUuebeLkgs9QB7Ue']
       playerStore.playlist = updatedPlaylist
       this.updatePlaylist(playerStore.playlist.peek())
     })
@@ -182,49 +182,49 @@ class MusicPlayerView extends React.Component {
     }
   }
 
-  queue (songURI) {
-    SpotifyModule.queue(
-      songURI,
-      (error) => {
-        if (error) {
-          console.log('Something went wrong: ', error)
-        }
-      }
-    )
-  }
+  // queue (songURI) {
+  //   SpotifyModule.queue(
+  //     songURI,
+  //     (error) => {
+  //       if (error) {
+  //         console.log('Something went wrong: ', error)
+  //       }
+  //     }
+  //   )
+  // }
   skipNext () {
     SpotifyModule.skipNext((res) => {
       this.updatePlaybackStatus()
       const next = this.nextTrack()
       if (next) {
         console.log('next: ', next)
-        playerStore.setPlaylist([
-          ...playerStore.playlist.slice(1)
-        ])
+        // playerStore.setPlaylist([
+        //   ...playerStore.playlist.slice(1)
+        // ])
       } else {
         console.log('No songs in queue')
       }
     })
   }
 
-  skipPrevious () {
-    SpotifyModule.skipPrevious((res) => {
-      this.updatePlaybackStatus()
-      const previous = this.previousTrack()
-      if (previous) {
-        playerStore.playlist = [
-          previous,
-          ...playerStore.playlist
-        ]
-        playerStore.history = [
-          ...playerStore.history.slice(1)
-        ]
-      } else {
-        console.log('No previous tracks')
-      }
-      // this.updateTracks()
-    })
-  }
+  // skipPrevious () {
+  //   SpotifyModule.skipPrevious((res) => {
+  //     this.updatePlaybackStatus()
+  //     const previous = this.previousTrack()
+  //     if (previous) {
+  //       playerStore.playlist = [
+  //         previous,
+  //         ...playerStore.playlist
+  //       ]
+  //       playerStore.history = [
+  //         ...playerStore.history.slice(1)
+  //       ]
+  //     } else {
+  //       console.log('No previous tracks')
+  //     }
+  //     // this.updateTracks()
+  //   })
+  // }
 
   togglePlayback (play) {
     playerStore.playing = play
@@ -253,16 +253,19 @@ class MusicPlayerView extends React.Component {
       <View style={styles.container}>
         {(playerStore.loggedIn) ? (
           <View>
+            {playerStore.playlist.map(song => (
+              <Text key={Math.random()}>{song}</Text>
+            ))}
             <Text>Hosting list: {playerStore.hostedPlaylistName}</Text>
-            <Text>Upcoming songs: {playerStore.playlist.length}</Text>
             <MetadataView metadata={playerStore.currentTrack} />
-            <Button style={styles.button} onPress={this.initPlaylist} title="Init playlist" />
+            <Button style={styles.button} onPress={this.initPlaylist} title="Init" />
             <Button style={styles.button} onPress={this.queueSong} title="Update" />
             <View style={styles.playerControls}>
               <TouchableOpacity
+                style={{ flex: 1 }}
                 onPress={this.stop}
               >
-                <Icon name="controller-stop" size={40} color={colors.darkGrey} />
+                <Icon name="controller-stop" size={60} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.playbutton}
@@ -270,14 +273,15 @@ class MusicPlayerView extends React.Component {
                 onPress={() => this.play(playerStore.playlist.peek())}
               >
                 {!playerStore.playing
-                  ? <Icon name="controller-play" size={90} />
-                  : <FoundationIcon name="pause" size={90} />
+                  ? <Icon name="controller-play" size={120} />
+                  : <FoundationIcon name="pause" size={120} />
                 }
               </TouchableOpacity>
               <TouchableOpacity
+                style={{ flex: 1 }}
                 onPress={this.skipNext}
               >
-                <Icon name="controller-next" size={40} color={colors.darkGrey} />
+                <Icon name="controller-next" size={60} />
               </TouchableOpacity>
 
             </View>
@@ -301,13 +305,11 @@ const styles = StyleSheet.create({
     minHeight: 140,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   },
   playbutton: {
-    alignItems: 'center',
-    width: 100,
-    minWidth: 100,
-    maxWidth: 100
+    flex: 2,
+    alignItems: 'center'
   },
   button: {
     backgroundColor: colors.testRed
