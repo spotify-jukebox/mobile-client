@@ -105,14 +105,15 @@ class MusicPlayerView extends React.Component {
   }
 
   queueSong () {
-    SpotifyModule.currentTrackIndex((index) => {
-      const store = playerStore
-      // const spliceAmount = (store.splicedSongs > index) ? index : index - store.splicedSongs
-      // store.splicedSongs = (spliceAmount > index) ? spliceAmount : store.splicedSongs + spliceAmount
-      const updatedPlaylist = [...playerStore.playlist, 'spotify:track:2SpEHTbUuebeLkgs9QB7Ue']
-      playerStore.playlist = updatedPlaylist
-      this.updatePlaylist(playerStore.playlist.peek())
-    })
+    playerStore.addNewTrack('spotify:track:2SpEHTbUuebeLkgs9QB7Ue')
+    // SpotifyModule.currentTrackIndex((index) => {
+    //   const store = playerStore
+    //   // const spliceAmount = (store.splicedSongs > index) ? index : index - store.splicedSongs
+    //   // store.splicedSongs = (spliceAmount > index) ? spliceAmount : store.splicedSongs + spliceAmount
+    //   const updatedPlaylist = [...playerStore.playlist, 'spotify:track:2SpEHTbUuebeLkgs9QB7Ue']
+    //   playerStore.playlist = updatedPlaylist
+    //   this.updatePlaylist(playerStore.playlist.peek())
+    // })
   }
 
   nextTrack () {
