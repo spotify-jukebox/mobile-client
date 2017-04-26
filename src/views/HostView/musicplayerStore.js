@@ -39,7 +39,7 @@ class MusicPlayerStore {
   @action addNewTrack (trackUri) {
     this.playlist.push(trackUri)
     SpotifyModule.currentTrackIndex((index) => {
-      SpotifyModule.replaceUris(this.playlist.peek(), index, (error) => {
+      SpotifyModule.replaceUris(this.playlist.peek(), index + 1, (error) => {
         console.log('Something went wrong adding a track: ', error)
       })
     })
