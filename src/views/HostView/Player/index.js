@@ -29,7 +29,6 @@ class MusicPlayerView extends React.Component {
     this.updatePlaylist = this.updatePlaylist.bind(this)
     this.updatePlaybackStatus = this.updatePlaybackStatus.bind(this)
     this.skipNext = this.skipNext.bind(this)
-    // this.skipPrevious = this.skipPrevious.bind(this)
     this.initPlaylist = this.initPlaylist.bind(this)
     this.nextTrack = this.nextTrack.bind(this)
     this.previousTrack = this.previousTrack.bind(this)
@@ -99,21 +98,10 @@ class MusicPlayerView extends React.Component {
         this.updateMetadata(metadataWithAlbumArt)
       })
     })
-    playerStore.spotifyEventEmitter.addListener("audioStreamingDidStopPlayingTrack", (data) => {
-      // SpotifyModule.replaceURIs()
-    })
   }
 
   queueSong () {
     playerStore.addNewTrack('spotify:track:2SpEHTbUuebeLkgs9QB7Ue')
-    // SpotifyModule.currentTrackIndex((index) => {
-    //   const store = playerStore
-    //   // const spliceAmount = (store.splicedSongs > index) ? index : index - store.splicedSongs
-    //   // store.splicedSongs = (spliceAmount > index) ? spliceAmount : store.splicedSongs + spliceAmount
-    //   const updatedPlaylist = [...playerStore.playlist, 'spotify:track:2SpEHTbUuebeLkgs9QB7Ue']
-    //   playerStore.playlist = updatedPlaylist
-    //   this.updatePlaylist(playerStore.playlist.peek())
-    // })
   }
 
   nextTrack () {
@@ -150,10 +138,6 @@ class MusicPlayerView extends React.Component {
         (error) => {
           if (!error) {
             playerStore.playing = true
-            // SpotifyModule.metadata((metadata) => {
-            //   playerStore.metadata = metadata
-            // })
-            // this.queueNext()
           } else console.log(error)
         })
     } else {
@@ -183,49 +167,17 @@ class MusicPlayerView extends React.Component {
     }
   }
 
-  // queue (songURI) {
-  //   SpotifyModule.queue(
-  //     songURI,
-  //     (error) => {
-  //       if (error) {
-  //         console.log('Something went wrong: ', error)
-  //       }
-  //     }
-  //   )
-  // }
   skipNext () {
     SpotifyModule.skipNext((res) => {
       this.updatePlaybackStatus()
       const next = this.nextTrack()
       if (next) {
         console.log('next: ', next)
-        // playerStore.setPlaylist([
-        //   ...playerStore.playlist.slice(1)
-        // ])
       } else {
         console.log('No songs in queue')
       }
     })
   }
-
-  // skipPrevious () {
-  //   SpotifyModule.skipPrevious((res) => {
-  //     this.updatePlaybackStatus()
-  //     const previous = this.previousTrack()
-  //     if (previous) {
-  //       playerStore.playlist = [
-  //         previous,
-  //         ...playerStore.playlist
-  //       ]
-  //       playerStore.history = [
-  //         ...playerStore.history.slice(1)
-  //       ]
-  //     } else {
-  //       console.log('No previous tracks')
-  //     }
-  //     // this.updateTracks()
-  //   })
-  // }
 
   togglePlayback (play) {
     playerStore.playing = play

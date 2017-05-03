@@ -33,7 +33,6 @@ class MusicPlayerStore {
   @action setPlaylist (playlist) {
     console.log(playlist)
     this.playlist = playlist
-    // this.currentTrack = playlist[0]
   }
 
   @action addNewTrack (trackUri) {

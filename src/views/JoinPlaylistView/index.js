@@ -22,7 +22,6 @@ class JoinPlaylistView extends React.Component {
   }
   setPlaylist (input) {
     contributorStore.joinPlaylist(input)
-    // this.props.navigation.navigate('Bottom')
     this.props.navigation.goBack()
   }
   render () {
